@@ -20,7 +20,7 @@ function [ Iout ] = myCLAHE( Im, wHalf, eps )
            end
            freq = freq + sum * ones(size(freq)) / 256;
            cdf = cumsum(freq);
-           Iout(i, j) = cdf(Im(i,j)) * 255;
+           Iout(i, j) = cdf(Im(i,j) + 1) * 255;
        end
    end
    display(size(freq));

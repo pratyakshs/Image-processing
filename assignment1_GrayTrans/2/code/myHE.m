@@ -1,6 +1,4 @@
 function [ out_img ] = myHE( in_img )
-%MYHE Summary of this function goes here
-%   Detailed explanation goes here
 range = 255;
 
 img_vec = in_img(:);

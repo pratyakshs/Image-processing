@@ -1,0 +1,142 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>myMainScript</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2015-08-09"><meta name="DC.source" content="myMainScript.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#1">MyMainScript</a></li><li><a href="#2">Your code here</a></li><li><a href="#3">1(a)</a></li><li><a href="#4">1(b)</a></li><li><a href="#5">1(c)</a></li></ul></div><h2>MyMainScript<a name="1"></a></h2><pre class="codeinput">tic;
+</pre><pre class="codeoutput error">Error: File: /home/pratyaksh/workspace/Image-processing/assignment1_GrayTrans/1/code/myMainScript.m Line: 13 Column: 22
+The input character is not valid in MATLAB statements or expressions.
+</pre><h2>Your code here<a name="2"></a></h2><pre class="codeinput">curDir = pwd;
+</pre><h2>1(a)<a name="3"></a></h2><pre class="codeinput">imgFile1 = fullfile(curDir, <span class="string">'..'</span>, <span class="string">'data'</span>, <span class="string">'circles_concentric.png'</span>);
+outImgFile1 = fullfile(curDir, <span class="string">'..'</span>, <span class="string">'images'</span>, <span class="string">'circles_concentric_shrinked-d-2.mat'</span>);
+outImgFile2 = fullfile(curDir, <span class="string">'..'</span>, <span class="string">'images'</span>, <span class="string">'circles_concentric_shrinked-d-3.mat'</span>);
+[img, map] = imread(imgFile1);
+iptsetpref(<span class="string">'ImshowAxesVisible'</span>,<span class="string">'on'</span>);
+figure(<span class="string">'Name'</span>, <span class="string">'Original circles_concentric.png'</span>), imshow(img, map), colorbar, truesize;
+shrinked2 = myShrinkI`mageByFactorD(img, 2);
+figure(<span class="string">'Name'</span>, <span class="string">'Shrinked d=2 circles_concentric.png'</span>), imshow(shrinked2, map), colorbar, truesize;
+save(outImgFile1, <span class="string">'shrinked2'</span>);
+shrinked3 = myShrinkImageByFactorD(img, 3);
+figure(<span class="string">'Name'</span>, <span class="string">'Shrinked d=3 circles_concentric.png'</span>), imshow(shrinked3, map), colorbar, truesize;
+save(outImgFile2, <span class="string">'shrinked3'</span>);
+
+<span class="comment">% We can see Moir&eacute; pattern in shrinked images.</span>
+</pre><h2>1(b)<a name="4"></a></h2><pre class="codeinput">imgFile2 = fullfile(curDir, <span class="string">'..'</span>, <span class="string">'data'</span>, <span class="string">'barbaraSmall.png'</span>);
+outImgFile3 = fullfile(curDir, <span class="string">'..'</span>, <span class="string">'images'</span>, <span class="string">'barbaraSmall-bilinear.mat'</span>);
+[img2, map2] = imread(imgFile2);
+figure(<span class="string">'Name'</span>, <span class="string">'Original barbaraSmall.png'</span>), imshow(img2, map2), colorbar, truesize;
+enlarged1 = myBilinearInterpolation(img2, 3, 2);
+figure(<span class="string">'Name'</span>, <span class="string">'Enlarged (bilinear) barbaraSmall.png'</span>), imshow(enlarged1, map), colorbar, truesize;
+save(outImgFile3, <span class="string">'enlarged1'</span>);
+</pre><h2>1(c)<a name="5"></a></h2><pre class="codeinput">outImgFile4 = fullfile(curDir, <span class="string">'..'</span>, <span class="string">'images'</span>, <span class="string">'barbaraSmall-nearest-neighbor.mat'</span>);
+figure(<span class="string">'Name'</span>, <span class="string">'Original barbaraSmall.png'</span>), imshow(img2, map2), colorbar, truesize;
+enlarged2 = myNearestNeighborInterpolation(img2);
+figure(<span class="string">'Name'</span>, <span class="string">'Enlarged (nearest-neighbor) barbaraSmall.png'</span>), imshow(enlarged2, map), colorbar, truesize;
+save(outImgFile4, <span class="string">'enlarged2'</span>);
+
+toc;
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% MyMainScript
+tic;
+%% Your code here
+curDir = pwd;
+
+%% 1(a)
+imgFile1 = fullfile(curDir, '..', 'data', 'circles_concentric.png');
+outImgFile1 = fullfile(curDir, '..', 'images', 'circles_concentric_shrinked-d-2.mat');
+outImgFile2 = fullfile(curDir, '..', 'images', 'circles_concentric_shrinked-d-3.mat');
+[img, map] = imread(imgFile1);
+iptsetpref('ImshowAxesVisible','on');
+figure('Name', 'Original circles_concentric.png'), imshow(img, map), colorbar, truesize;
+shrinked2 = myShrinkI`mageByFactorD(img, 2);
+figure('Name', 'Shrinked d=2 circles_concentric.png'), imshow(shrinked2, map), colorbar, truesize;
+save(outImgFile1, 'shrinked2');
+shrinked3 = myShrinkImageByFactorD(img, 3);
+figure('Name', 'Shrinked d=3 circles_concentric.png'), imshow(shrinked3, map), colorbar, truesize;
+save(outImgFile2, 'shrinked3');
+
+% We can see Moiré pattern in shrinked images.
+
+%% 1(b)
+imgFile2 = fullfile(curDir, '..', 'data', 'barbaraSmall.png');
+outImgFile3 = fullfile(curDir, '..', 'images', 'barbaraSmall-bilinear.mat');
+[img2, map2] = imread(imgFile2);
+figure('Name', 'Original barbaraSmall.png'), imshow(img2, map2), colorbar, truesize;
+enlarged1 = myBilinearInterpolation(img2, 3, 2);
+figure('Name', 'Enlarged (bilinear) barbaraSmall.png'), imshow(enlarged1, map), colorbar, truesize;
+save(outImgFile3, 'enlarged1');
+
+%% 1(c)
+outImgFile4 = fullfile(curDir, '..', 'images', 'barbaraSmall-nearest-neighbor.mat');
+figure('Name', 'Original barbaraSmall.png'), imshow(img2, map2), colorbar, truesize;
+enlarged2 = myNearestNeighborInterpolation(img2);
+figure('Name', 'Enlarged (nearest-neighbor) barbaraSmall.png'), imshow(enlarged2, map), colorbar, truesize;
+save(outImgFile4, 'enlarged2');
+
+toc;
+##### SOURCE END #####
+--></body></html>

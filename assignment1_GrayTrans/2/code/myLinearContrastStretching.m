@@ -1,6 +1,4 @@
 function [out_img] = myLinearContrastStretching(in_img)
-%MYLINEARCONTRASTSTRETCHING Summary of this function goes here
-%   Detailed explanation goes here
 max_val = double(max(in_img));
 min_val = double(min(in_img));
 orig_range = max_val - min_val;

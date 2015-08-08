@@ -1,0 +1,284 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>myMainScript</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2015-08-09"><meta name="DC.source" content="myMainScript.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#1">MyMainScript</a></li><li><a href="#2">Setting global data</a></li><li><a href="#3">Input files</a></li><li><a href="#4">Output files</a></li><li><a href="#5">Actual Input</a></li><li><a href="#6">2(a): LinearContrastStretching</a></li><li><a href="#7">2(b): Histogram Equalization</a></li><li><a href="#8">2(c): Adaptive Histogram Equalization</a></li><li><a href="#9">2(d): Contrast-Limited Adaptive Histogram Equalization</a></li><li><a href="#10">Output</a></li></ul></div><h2>MyMainScript<a name="1"></a></h2><pre class="codeinput">tic;
+</pre><h2>Setting global data<a name="2"></a></h2><pre class="codeinput">curDir = pwd;
+</pre><h2>Input files<a name="3"></a></h2><pre class="codeinput">inp_imgFil_1 = fullfile(curDir, <span class="string">'..'</span>, <span class="string">'data'</span>, <span class="string">'barbara.png'</span>);
+inp_imgFil_2 = fullfile(curDir, <span class="string">'..'</span>, <span class="string">'data'</span>, <span class="string">'TEM.png'</span>);
+inp_imgFil_3 = fullfile(curDir, <span class="string">'..'</span>, <span class="string">'data'</span>, <span class="string">'canyon.png'</span>);
+</pre><h2>Output files<a name="4"></a></h2><pre class="codeinput">out_imgFil_1_a = fullfile(curDir, <span class="string">'..'</span>, <span class="string">'images'</span>, <span class="string">'2a'</span>, <span class="string">'barbara_out.mat'</span>);
+out_imgFil_2_a = fullfile(curDir, <span class="string">'..'</span>, <span class="string">'images'</span>, <span class="string">'2a'</span>, <span class="string">'TEM_out.mat'</span>);
+out_imgFil_3_a = fullfile(curDir, <span class="string">'..'</span>, <span class="string">'images'</span>, <span class="string">'2a'</span>, <span class="string">'canyon_out.mat'</span>);
+
+out_imgFil_1_b = fullfile(curDir, <span class="string">'..'</span>, <span class="string">'images'</span>, <span class="string">'2b'</span>, <span class="string">'barbara_out.mat'</span>);
+out_imgFil_2_b = fullfile(curDir, <span class="string">'..'</span>, <span class="string">'images'</span>, <span class="string">'2b'</span>, <span class="string">'TEM_out.mat'</span>);
+out_imgFil_3_b = fullfile(curDir, <span class="string">'..'</span>, <span class="string">'images'</span>, <span class="string">'2b'</span>, <span class="string">'canyon_out.mat'</span>);
+
+out_imgFil_1_c = fullfile(curDir, <span class="string">'..'</span>, <span class="string">'images'</span>, <span class="string">'2c'</span>, <span class="string">'barbara_out.mat'</span>);
+out_imgFil_2_c = fullfile(curDir, <span class="string">'..'</span>, <span class="string">'images'</span>, <span class="string">'2c'</span>, <span class="string">'TEM_out.mat'</span>);
+out_imgFil_3_c = fullfile(curDir, <span class="string">'..'</span>, <span class="string">'images'</span>, <span class="string">'2c'</span>, <span class="string">'canyon_out.mat'</span>);
+
+out_imgFil_1_d = fullfile(curDir, <span class="string">'..'</span>, <span class="string">'images'</span>, <span class="string">'2d'</span>, <span class="string">'barbara_out.mat'</span>);
+out_imgFil_2_d = fullfile(curDir, <span class="string">'..'</span>, <span class="string">'images'</span>, <span class="string">'2d'</span>, <span class="string">'TEM_out.mat'</span>);
+out_imgFil_3_d = fullfile(curDir, <span class="string">'..'</span>, <span class="string">'images'</span>, <span class="string">'2d'</span>, <span class="string">'canyon_out.mat'</span>);
+</pre><h2>Actual Input<a name="5"></a></h2><pre class="codeinput">inp_im_1 = imread(inp_imgFil_1);
+figure(<span class="string">'Name'</span>, <span class="string">'Original barbara.png'</span>), imshow(out_im_1_a, map), colorbar, truesize;
+
+inp_im_2 = imread(inp_imgFil_2);
+figure(<span class="string">'Name'</span>, <span class="string">'Original TEM.png'</span>), imshow(out_im_1_a, map), colorbar, truesize;
+
+inp_im_3 = imread(inp_imgFil_3);
+figure(<span class="string">'Name'</span>, <span class="string">'Original canyon.png'</span>), imshow(out_im_1_a, map), colorbar, truesize;
+
+<span class="comment">%image 3 has separate r, g and b channels (others being greyscale).</span>
+inp_im_3_r = inp_im_3(:,:,1);
+inp_im_3_g = inp_im_3(:,:,2);
+inp_im_3_b = inp_im_3(:,:,3);
+</pre><img vspace="5" hspace="5" src="myMainScript_01.png" alt=""> <img vspace="5" hspace="5" src="myMainScript_02.png" alt=""> <img vspace="5" hspace="5" src="myMainScript_03.png" alt=""> <h2>2(a): LinearContrastStretching<a name="6"></a></h2><pre class="codeinput">out_im_1_a = myLinearContrastStretching(inp_im_1);
+figure(<span class="string">'Name'</span>, <span class="string">'Contrast-enhanced (Linear contrast stretching) barbara.png'</span>), imshow(out_im_1_a, map), colorbar, truesize;
+
+out_im_2_a = myLinearContrastStretching(inp_im_2);
+figure(<span class="string">'Name'</span>, <span class="string">'Contrast-enhanced (Linear contrast stretching) TEM.png'</span>), imshow(out_im_2_a, map), colorbar, truesize;
+
+out_im_3_r_a = myLinearContrastStretching(inp_im_3_r);
+out_im_3_g_a = myLinearContrastStretching(inp_im_3_g);
+out_im_3_b_a = myLinearContrastStretching(inp_im_3_b);
+out_im_3_a = cat(3, out_im_3_r_a, out_im_3_g_a, out_im_3_b_a);
+figure(<span class="string">'Name'</span>, <span class="string">'Contrast-enhanced (Linear contrast stretching) canyon.png'</span>), imshow(out_im_3_a, map), colorbar, truesize;
+</pre><img vspace="5" hspace="5" src="myMainScript_04.png" alt=""> <img vspace="5" hspace="5" src="myMainScript_05.png" alt=""> <img vspace="5" hspace="5" src="myMainScript_06.png" alt=""> <h2>2(b): Histogram Equalization<a name="7"></a></h2><pre class="codeinput">out_im_1_b = myHE(inp_im_1);
+figure(<span class="string">'Name'</span>, <span class="string">'Contrast-enhanced (Histogram Equalization) barbara.png'</span>), imshow(out_im_1_b, map), colorbar, truesize;
+
+out_im_2_b = myHE(inp_im_2);
+figure(<span class="string">'Name'</span>, <span class="string">'Contrast-enhanced (Histogram Equalization) TEM.png'</span>), imshow(out_im_2_b, map), colorbar, truesize;
+
+out_im_3_r_b = myHE(inp_im_3_r);
+out_im_3_g_b = myHE(inp_im_3_g);
+out_im_3_b_b = myHE(inp_im_3_b);
+out_im_3_b = cat(3, out_im_3_r_b, out_im_3_g_b, out_im_3_b_b);
+figure(<span class="string">'Name'</span>, <span class="string">'Contrast-enhanced (Histogram Equalization) canyon.png'</span>), imshow(out_im_3_b, map), colorbar, truesize;
+</pre><img vspace="5" hspace="5" src="myMainScript_07.png" alt=""> <img vspace="5" hspace="5" src="myMainScript_08.png" alt=""> <img vspace="5" hspace="5" src="myMainScript_09.png" alt=""> <h2>2(c): Adaptive Histogram Equalization<a name="8"></a></h2><pre class="codeinput">out_im_1_c = myAHE(inp_im_1);
+figure(<span class="string">'Name'</span>, <span class="string">'Contrast-enhanced (AHE) barbara.png'</span>), imshow(out_im_1_b, map), colorbar, truesize;
+
+out_im_2_c = myAHE(inp_im_2);
+figure(<span class="string">'Name'</span>, <span class="string">'Contrast-enhanced (AHE) TEM.png'</span>), imshow(out_im_1_b, map), colorbar, truesize;
+
+out_im_3_r_c = myAHE(inp_im_3_r);
+out_im_3_g_c = myAHE(inp_im_3_g);
+out_im_3_b_c = myAHE(inp_im_3_b);
+out_im_3_c = cat(3, out_im_3_r_c, out_im_3_g_c, out_im_3_b_c);
+figure(<span class="string">'Name'</span>, <span class="string">'Contrast-enhanced (AHE) canyon.png'</span>), imshow(out_im_1_b, map), colorbar, truesize;
+</pre><pre class="codeoutput error">Error using myAHE (line 6)
+Not enough input arguments.
+
+Error in myMainScript (line 71)
+out_im_1_c = myAHE(inp_im_1);
+</pre><h2>2(d): Contrast-Limited Adaptive Histogram Equalization<a name="9"></a></h2><pre class="codeinput">out_im_1_d = myCLAHE(inp_im_1);
+figure(<span class="string">'Name'</span>, <span class="string">'Contrast-enhanced (CLAHE) barbara.png'</span>), imshow(out_im_1_b, map), colorbar, truesize;
+
+out_im_2_d = myCLAHE(inp_im_2);
+figure(<span class="string">'Name'</span>, <span class="string">'Contrast-enhanced (AHE) TEM.png'</span>), imshow(out_im_1_b, map), colorbar, truesize;
+
+out_im_3_r_d = myCLAHE(inp_im_3_r);
+out_im_3_g_d = myCLAHE(inp_im_3_g);
+out_im_3_b_d = myCLAHE(inp_im_3_b);
+out_im_3_d = cat(3, out_im_3_r_d, out_im_3_g_d, out_im_3_b_d);
+figure(<span class="string">'Name'</span>, <span class="string">'Contrast-enhanced (AHE) canyon.png'</span>), imshow(out_im_1_b, map), colorbar, truesize;
+</pre><h2>Output<a name="10"></a></h2><pre class="codeinput">save(out_imgFil_1_a, <span class="string">'out_im_1_a'</span>);
+save(out_imgFil_2_a, <span class="string">'out_im_2_a'</span>);
+save(out_imgFil_3_a, <span class="string">'out_im_3_a'</span>);
+
+save(out_imgFil_1_b, <span class="string">'out_im_1_b'</span>);
+save(out_imgFil_2_b, <span class="string">'out_im_2_b'</span>);
+save(out_imgFil_3_b, <span class="string">'out_im_3_b'</span>);
+
+save(out_imgFil_1_c, <span class="string">'out_im_1_c'</span>);
+save(out_imgFil_2_c, <span class="string">'out_im_2_c'</span>);
+save(out_imgFil_3_c, <span class="string">'out_im_3_c'</span>);
+
+save(out_imgFil_1_d, <span class="string">'out_im_1_d'</span>);
+save(out_imgFil_2_d, <span class="string">'out_im_2_d'</span>);
+save(out_imgFil_3_d, <span class="string">'out_im_3_d'</span>);
+
+toc;
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% MyMainScript
+
+tic;
+%% Setting global data
+curDir = pwd;
+
+%% Input files
+inp_imgFil_1 = fullfile(curDir, '..', 'data', 'barbara.png');
+inp_imgFil_2 = fullfile(curDir, '..', 'data', 'TEM.png');
+inp_imgFil_3 = fullfile(curDir, '..', 'data', 'canyon.png');
+
+%% Output files
+out_imgFil_1_a = fullfile(curDir, '..', 'images', '2a', 'barbara_out.mat');
+out_imgFil_2_a = fullfile(curDir, '..', 'images', '2a', 'TEM_out.mat');
+out_imgFil_3_a = fullfile(curDir, '..', 'images', '2a', 'canyon_out.mat');
+
+out_imgFil_1_b = fullfile(curDir, '..', 'images', '2b', 'barbara_out.mat');
+out_imgFil_2_b = fullfile(curDir, '..', 'images', '2b', 'TEM_out.mat');
+out_imgFil_3_b = fullfile(curDir, '..', 'images', '2b', 'canyon_out.mat');
+
+out_imgFil_1_c = fullfile(curDir, '..', 'images', '2c', 'barbara_out.mat');
+out_imgFil_2_c = fullfile(curDir, '..', 'images', '2c', 'TEM_out.mat');
+out_imgFil_3_c = fullfile(curDir, '..', 'images', '2c', 'canyon_out.mat');
+
+out_imgFil_1_d = fullfile(curDir, '..', 'images', '2d', 'barbara_out.mat');
+out_imgFil_2_d = fullfile(curDir, '..', 'images', '2d', 'TEM_out.mat');
+out_imgFil_3_d = fullfile(curDir, '..', 'images', '2d', 'canyon_out.mat');
+
+%% Actual Input
+inp_im_1 = imread(inp_imgFil_1);
+figure('Name', 'Original barbara.png'), imshow(out_im_1_a, map), colorbar, truesize;
+
+inp_im_2 = imread(inp_imgFil_2);
+figure('Name', 'Original TEM.png'), imshow(out_im_1_a, map), colorbar, truesize;
+
+inp_im_3 = imread(inp_imgFil_3);
+figure('Name', 'Original canyon.png'), imshow(out_im_1_a, map), colorbar, truesize;
+
+%image 3 has separate r, g and b channels (others being greyscale).
+inp_im_3_r = inp_im_3(:,:,1);
+inp_im_3_g = inp_im_3(:,:,2);
+inp_im_3_b = inp_im_3(:,:,3);
+
+%% 2(a): LinearContrastStretching
+out_im_1_a = myLinearContrastStretching(inp_im_1);
+figure('Name', 'Contrast-enhanced (Linear contrast stretching) barbara.png'), imshow(out_im_1_a, map), colorbar, truesize;
+
+out_im_2_a = myLinearContrastStretching(inp_im_2);
+figure('Name', 'Contrast-enhanced (Linear contrast stretching) TEM.png'), imshow(out_im_2_a, map), colorbar, truesize;
+
+out_im_3_r_a = myLinearContrastStretching(inp_im_3_r);
+out_im_3_g_a = myLinearContrastStretching(inp_im_3_g);
+out_im_3_b_a = myLinearContrastStretching(inp_im_3_b);
+out_im_3_a = cat(3, out_im_3_r_a, out_im_3_g_a, out_im_3_b_a);
+figure('Name', 'Contrast-enhanced (Linear contrast stretching) canyon.png'), imshow(out_im_3_a, map), colorbar, truesize;
+
+%% 2(b): Histogram Equalization
+out_im_1_b = myHE(inp_im_1);
+figure('Name', 'Contrast-enhanced (Histogram Equalization) barbara.png'), imshow(out_im_1_b, map), colorbar, truesize;
+
+out_im_2_b = myHE(inp_im_2);
+figure('Name', 'Contrast-enhanced (Histogram Equalization) TEM.png'), imshow(out_im_2_b, map), colorbar, truesize;
+
+out_im_3_r_b = myHE(inp_im_3_r);
+out_im_3_g_b = myHE(inp_im_3_g);
+out_im_3_b_b = myHE(inp_im_3_b);
+out_im_3_b = cat(3, out_im_3_r_b, out_im_3_g_b, out_im_3_b_b);
+figure('Name', 'Contrast-enhanced (Histogram Equalization) canyon.png'), imshow(out_im_3_b, map), colorbar, truesize;
+
+%% 2(c): Adaptive Histogram Equalization
+out_im_1_c = myAHE(inp_im_1);
+figure('Name', 'Contrast-enhanced (AHE) barbara.png'), imshow(out_im_1_b, map), colorbar, truesize;
+
+out_im_2_c = myAHE(inp_im_2);
+figure('Name', 'Contrast-enhanced (AHE) TEM.png'), imshow(out_im_1_b, map), colorbar, truesize;
+
+out_im_3_r_c = myAHE(inp_im_3_r);
+out_im_3_g_c = myAHE(inp_im_3_g);
+out_im_3_b_c = myAHE(inp_im_3_b);
+out_im_3_c = cat(3, out_im_3_r_c, out_im_3_g_c, out_im_3_b_c);
+figure('Name', 'Contrast-enhanced (AHE) canyon.png'), imshow(out_im_1_b, map), colorbar, truesize;
+
+%% 2(d): Contrast-Limited Adaptive Histogram Equalization
+out_im_1_d = myCLAHE(inp_im_1);
+figure('Name', 'Contrast-enhanced (CLAHE) barbara.png'), imshow(out_im_1_b, map), colorbar, truesize;
+
+out_im_2_d = myCLAHE(inp_im_2);
+figure('Name', 'Contrast-enhanced (AHE) TEM.png'), imshow(out_im_1_b, map), colorbar, truesize;
+
+out_im_3_r_d = myCLAHE(inp_im_3_r);
+out_im_3_g_d = myCLAHE(inp_im_3_g);
+out_im_3_b_d = myCLAHE(inp_im_3_b);
+out_im_3_d = cat(3, out_im_3_r_d, out_im_3_g_d, out_im_3_b_d);
+figure('Name', 'Contrast-enhanced (AHE) canyon.png'), imshow(out_im_1_b, map), colorbar, truesize;
+
+%% Output
+save(out_imgFil_1_a, 'out_im_1_a');
+save(out_imgFil_2_a, 'out_im_2_a');
+save(out_imgFil_3_a, 'out_im_3_a');
+
+save(out_imgFil_1_b, 'out_im_1_b');
+save(out_imgFil_2_b, 'out_im_2_b');
+save(out_imgFil_3_b, 'out_im_3_b');
+
+save(out_imgFil_1_c, 'out_im_1_c');
+save(out_imgFil_2_c, 'out_im_2_c');
+save(out_imgFil_3_c, 'out_im_3_c');
+
+save(out_imgFil_1_d, 'out_im_1_d');
+save(out_imgFil_2_d, 'out_im_2_d');
+save(out_imgFil_3_d, 'out_im_3_d');
+
+toc;
+##### SOURCE END #####
+--></body></html>
