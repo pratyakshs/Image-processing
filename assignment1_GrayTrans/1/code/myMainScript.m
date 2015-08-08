@@ -19,7 +19,19 @@ save(outImgFile2, 'shrinked3');
 
 
 %% 1(b)
+imgFile2 = fullfile(curDir, '..', 'data', 'barbaraSmall.png');
+outImgFile3 = fullfile(curDir, '..', 'images', 'barbaraSmall-bilinear.mat');
+[img2, map2] = imread(imgFile2);
+figure('Name', 'Original barbaraSmall.png'), imshow(img2, map2), colorbar, truesize;
+enlarged1 = myBilinearInterpolation(img2, 3, 2);
+figure('Name', 'Enlarged (bilinear) barbaraSmall.png'), imshow(enlarged1, map), colorbar, truesize;
+save(outImgFile3, 'enlarged1');
 
 %% 1(c)
+outImgFile4 = fullfile(curDir, '..', 'images', 'barbaraSmall-nearest-neighbor.mat');
+figure('Name', 'Original barbaraSmall.png'), imshow(img2, map2), colorbar, truesize;
+enlarged2 = myNearestNeighborInterpolation(img2);
+figure('Name', 'Enlarged (nearest-neighbor) barbaraSmall.png'), imshow(enlarged2, map), colorbar, truesize;
+save(outImgFile4, 'enlarged2');
 
 toc;
