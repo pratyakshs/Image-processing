@@ -1,4 +1,5 @@
 function [ Iex ] =  myBilinearInterpolation( Im, exRow, exCol )
+%Function to perform Bilinear Interpolation
     [row, col] = size(Im);
     rowF = (row*exRow) - exRow + 1;
     colF = (col*exCol) - exCol + 1;

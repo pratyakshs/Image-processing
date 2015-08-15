@@ -1,4 +1,5 @@
 function [ Iout ] = myAHE( Im, wHalf ) 
+% Function to perform Adaptive Histogram Equalization
    [row, col] = size(Im);
    Iout = zeros([row, col]);
    wb = waitbar(0, 'Performing Adaptive Histogram Equalization');

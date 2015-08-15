@@ -1,4 +1,5 @@
 function [out_img] = myLinearContrastStretching(in_img)
+% Function to change contrast using Linear Contrast Stretching
 max_val = double(max(in_img));
 min_val = double(min(in_img));
 orig_range = max_val - min_val;

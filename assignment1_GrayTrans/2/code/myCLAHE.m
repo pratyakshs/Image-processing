@@ -1,4 +1,5 @@
 function [ Iout ] = myCLAHE( Im, wHalf, eps ) 
+% Function to perform Contrast Limited Adaptive Histogram Equalization
    [row, col] = size(Im);
    Iout = zeros([row, col]);
    

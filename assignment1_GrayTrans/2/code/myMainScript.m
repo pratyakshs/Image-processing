@@ -45,15 +45,22 @@ inp_im_3_b = inp_im_3(:,:,3);
 %% 2(a): LinearContrastStretching
 out_im_1_a = myLinearContrastStretching(inp_im_1);
 figure('Name', 'Contrast-enhanced (Linear contrast stretching) barbara.png'), imshow(out_im_1_a, map1), colorbar, truesize;
+%As we see, the boundaries (especially) are now more enhanced and we can
+%see the facial features better
 
 out_im_2_a = myLinearContrastStretching(inp_im_2);
 figure('Name', 'Contrast-enhanced (Linear contrast stretching) TEM.png'), imshow(out_im_2_a, map2), colorbar, truesize;
+%Contrast enhancement is even more pronounced in this case, the image is
+%significantly darker at the boundaries as compared to the original
 
 out_im_3_r_a = myLinearContrastStretching(inp_im_3_r);
 out_im_3_g_a = myLinearContrastStretching(inp_im_3_g);
 out_im_3_b_a = myLinearContrastStretching(inp_im_3_b);
 out_im_3_a = cat(3, out_im_3_r_a, out_im_3_g_a, out_im_3_b_a);
 figure('Name', 'Contrast-enhanced (Linear contrast stretching) canyon.png'), imshow(out_im_3_a, map3), colorbar, truesize;
+%Here, the effects can be seen near the ground, where more rocks are
+%visible. Since this is a colored image, r, g and b channels have been
+%separately enhanced
 
 %% 2(b): Histogram Equalization
 out_im_1_b = myHE(inp_im_1);
@@ -67,6 +74,9 @@ out_im_3_g_b = myHE(inp_im_3_g);
 out_im_3_b_b = myHE(inp_im_3_b);
 out_im_3_b = cat(3, out_im_3_r_b, out_im_3_g_b, out_im_3_b_b);
 figure('Name', 'Contrast-enhanced (Histogram Equalization) canyon.png'), imshow(out_im_3_b, map3), colorbar, truesize;
+%As apparent from the three images, Histogram Equalisation performs
+%significantly better than Linear Contrast Stretching. In image 3, for
+%example, the boulder on the bottom right has more features as visible now
 
 %% 2(c): Adaptive Histogram Equalization
 out_im_1_c_20 = myAHE(inp_im_1, 20);
@@ -90,7 +100,7 @@ out_im_3_c = cat(3, out_im_3_r_c, out_im_3_g_c, out_im_3_b_c);
 figure('Name', 'Contrast-enhanced (AHE w=41) canyon.png'), imshow(out_im_3_c, map3), colorbar, truesize;
 
 % As we can see in the output images, AHE with small window size amplifies
-% effect of noise in the image.
+% effect of noise in the image, but increases the contrast
 
 %% 2(d): Contrast-Limited Adaptive Histogram Equalization
 out_im_1_d = myCLAHE(inp_im_1, 20, 0.007);
@@ -108,7 +118,8 @@ out_im_3_g_d = myCLAHE(inp_im_3_g);
 out_im_3_b_d = myCLAHE(inp_im_3_b);
 out_im_3_d = cat(3, out_im_3_r_d, out_im_3_g_d, out_im_3_b_d);
 figure('Name', 'Contrast-enhanced (CLAHE threshold=0.007) canyon.png'), imshow(out_im_2_d, map3), colorbar, truesize;
-
+%This method produces the best results as expected, and yet again, a
+%smaller window means more contrast and more noise
 
 %% Output
 save(out_imgFil_1_a, 'out_im_1_a');

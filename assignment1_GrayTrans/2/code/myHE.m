@@ -1,4 +1,5 @@
 function [ out_img ] = myHE( in_img )
+% Function to perform Histogram Equalization
 range = 255;
 
 img_vec = in_img(:);
