@@ -74,6 +74,15 @@ figure('Name', 'Contrast-enhanced (Linear contrast stretching) canyon.png'), ims
 %visible. Since this is a colored image, r, g and b channels have been
 %separately enhanced
 
+% The concept behind Linear Contrast Stretching is basically creating a
+% mapping between the new and old pixels. The peseudocode for this would
+% be:
+% old_range = max(all_intensities) - min(all_intensities)
+% new_range = 255
+% for all pixels:
+%   intensity = (intensity/old_range)*new_range
+% end for
+
 %% 2(b): Histogram Equalization
 out_im_1_b = myHE(inp_im_1);
 figure('Name', 'Contrast-enhanced (Histogram Equalization) barbara.png'), imshow(out_im_1_b, [0 255]), colorbar, truesize;
@@ -86,7 +95,7 @@ out_im_3_g_b = myHE(inp_im_3_g);
 out_im_3_b_b = myHE(inp_im_3_b);
 out_im_3_b = cat(3, out_im_3_r_b, out_im_3_g_b, out_im_3_b_b);
 figure('Name', 'Contrast-enhanced (Histogram Equalization) canyon.png'), imshow(single(out_im_3_b)/255, colormap(hsv(255))), colorbar, truesize;
-%As apparent from the three images, Histogram Equalisation performs
+% As apparent from the three images, Histogram Equalisation performs
 %significantly better than Linear Contrast Stretching. In image 3, for
 %example, the boulder on the bottom right has more features as visible now
 
