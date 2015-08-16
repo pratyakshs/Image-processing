@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>myMainScript</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2015-08-09"><meta name="DC.source" content="myMainScript.m"><style type="text/css">
+      --><title>myMainScript</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2015-08-16"><meta name="DC.source" content="myMainScript.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,8 +67,6 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
   </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#1">MyMainScript</a></li><li><a href="#2">Your code here</a></li><li><a href="#3">1(a)</a></li><li><a href="#4">1(b)</a></li><li><a href="#5">1(c)</a></li></ul></div><h2>MyMainScript<a name="1"></a></h2><pre class="codeinput">tic;
-</pre><pre class="codeoutput error">Error: File: /home/pratyaksh/workspace/Image-processing/assignment1_GrayTrans/1/code/myMainScript.m Line: 13 Column: 22
-The input character is not valid in MATLAB statements or expressions.
 </pre><h2>Your code here<a name="2"></a></h2><pre class="codeinput">curDir = pwd;
 </pre><h2>1(a)<a name="3"></a></h2><pre class="codeinput">imgFile1 = fullfile(curDir, <span class="string">'..'</span>, <span class="string">'data'</span>, <span class="string">'circles_concentric.png'</span>);
 outImgFile1 = fullfile(curDir, <span class="string">'..'</span>, <span class="string">'images'</span>, <span class="string">'circles_concentric_shrinked-d-2.mat'</span>);
@@ -76,7 +74,7 @@ outImgFile2 = fullfile(curDir, <span class="string">'..'</span>, <span class="st
 [img, map] = imread(imgFile1);
 iptsetpref(<span class="string">'ImshowAxesVisible'</span>,<span class="string">'on'</span>);
 figure(<span class="string">'Name'</span>, <span class="string">'Original circles_concentric.png'</span>), imshow(img, map), colorbar, truesize;
-shrinked2 = myShrinkI`mageByFactorD(img, 2);
+shrinked2 = myShrinkImageByFactorD(img, 2);
 figure(<span class="string">'Name'</span>, <span class="string">'Shrinked d=2 circles_concentric.png'</span>), imshow(shrinked2, map), colorbar, truesize;
 save(outImgFile1, <span class="string">'shrinked2'</span>);
 shrinked3 = myShrinkImageByFactorD(img, 3);
@@ -84,21 +82,25 @@ figure(<span class="string">'Name'</span>, <span class="string">'Shrinked d=3 ci
 save(outImgFile2, <span class="string">'shrinked3'</span>);
 
 <span class="comment">% We can see Moir&eacute; pattern in shrinked images.</span>
-</pre><h2>1(b)<a name="4"></a></h2><pre class="codeinput">imgFile2 = fullfile(curDir, <span class="string">'..'</span>, <span class="string">'data'</span>, <span class="string">'barbaraSmall.png'</span>);
+</pre><img vspace="5" hspace="5" src="myMainScript_01.png" alt=""> <img vspace="5" hspace="5" src="myMainScript_02.png" alt=""> <img vspace="5" hspace="5" src="myMainScript_03.png" alt=""> <h2>1(b)<a name="4"></a></h2><pre class="codeinput">imgFile2 = fullfile(curDir, <span class="string">'..'</span>, <span class="string">'data'</span>, <span class="string">'barbaraSmall.png'</span>);
 outImgFile3 = fullfile(curDir, <span class="string">'..'</span>, <span class="string">'images'</span>, <span class="string">'barbaraSmall-bilinear.mat'</span>);
 [img2, map2] = imread(imgFile2);
 figure(<span class="string">'Name'</span>, <span class="string">'Original barbaraSmall.png'</span>), imshow(img2, map2), colorbar, truesize;
 enlarged1 = myBilinearInterpolation(img2, 3, 2);
 figure(<span class="string">'Name'</span>, <span class="string">'Enlarged (bilinear) barbaraSmall.png'</span>), imshow(enlarged1, map), colorbar, truesize;
 save(outImgFile3, <span class="string">'enlarged1'</span>);
-</pre><h2>1(c)<a name="5"></a></h2><pre class="codeinput">outImgFile4 = fullfile(curDir, <span class="string">'..'</span>, <span class="string">'images'</span>, <span class="string">'barbaraSmall-nearest-neighbor.mat'</span>);
+</pre><img vspace="5" hspace="5" src="myMainScript_04.png" alt=""> <img vspace="5" hspace="5" src="myMainScript_05.png" alt=""> <h2>1(c)<a name="5"></a></h2><pre class="codeinput">outImgFile4 = fullfile(curDir, <span class="string">'..'</span>, <span class="string">'images'</span>, <span class="string">'barbaraSmall-nearest-neighbor.mat'</span>);
 figure(<span class="string">'Name'</span>, <span class="string">'Original barbaraSmall.png'</span>), imshow(img2, map2), colorbar, truesize;
 enlarged2 = myNearestNeighborInterpolation(img2);
 figure(<span class="string">'Name'</span>, <span class="string">'Enlarged (nearest-neighbor) barbaraSmall.png'</span>), imshow(enlarged2, map), colorbar, truesize;
 save(outImgFile4, <span class="string">'enlarged2'</span>);
 
+<span class="comment">% It's clear that the bilinear interpolation is less pixelated than the</span>
+<span class="comment">% nearest neighbor interpolation.</span>
+
 toc;
-</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
+</pre><pre class="codeoutput">Elapsed time is 5.805945 seconds.
+</pre><img vspace="5" hspace="5" src="myMainScript_06.png" alt=""> <img vspace="5" hspace="5" src="myMainScript_07.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% MyMainScript
 tic;
@@ -112,7 +114,7 @@ outImgFile2 = fullfile(curDir, '..', 'images', 'circles_concentric_shrinked-d-3.
 [img, map] = imread(imgFile1);
 iptsetpref('ImshowAxesVisible','on');
 figure('Name', 'Original circles_concentric.png'), imshow(img, map), colorbar, truesize;
-shrinked2 = myShrinkI`mageByFactorD(img, 2);
+shrinked2 = myShrinkImageByFactorD(img, 2);
 figure('Name', 'Shrinked d=2 circles_concentric.png'), imshow(shrinked2, map), colorbar, truesize;
 save(outImgFile1, 'shrinked2');
 shrinked3 = myShrinkImageByFactorD(img, 3);
@@ -130,12 +132,16 @@ enlarged1 = myBilinearInterpolation(img2, 3, 2);
 figure('Name', 'Enlarged (bilinear) barbaraSmall.png'), imshow(enlarged1, map), colorbar, truesize;
 save(outImgFile3, 'enlarged1');
 
+
 %% 1(c)
 outImgFile4 = fullfile(curDir, '..', 'images', 'barbaraSmall-nearest-neighbor.mat');
 figure('Name', 'Original barbaraSmall.png'), imshow(img2, map2), colorbar, truesize;
 enlarged2 = myNearestNeighborInterpolation(img2);
 figure('Name', 'Enlarged (nearest-neighbor) barbaraSmall.png'), imshow(enlarged2, map), colorbar, truesize;
 save(outImgFile4, 'enlarged2');
+
+% It's clear that the bilinear interpolation is less pixelated than the
+% nearest neighbor interpolation.
 
 toc;
 ##### SOURCE END #####

@@ -17,6 +17,5 @@ function [ Iout ] = myAHE( Im, wHalf )
        end
        waitbar(i/row);
    end
-   display(size(freq));
    close(wb);
 end

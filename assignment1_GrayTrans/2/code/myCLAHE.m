@@ -24,5 +24,4 @@ function [ Iout ] = myCLAHE( Im, wHalf, eps )
            Iout(i, j) = cdf(Im(i,j) + 1) * 255;
        end
    end
-   display(size(freq));
 end
