@@ -100,24 +100,33 @@ figure('Name', 'Contrast-enhanced (Histogram Equalization) canyon.png'), imshow(
 %example, the boulder on the bottom right has more features as visible now
 
 %% 2(c): Adaptive Histogram Equalization
-out_im_1_c_20 = myAHE(inp_im_1, 20);
+% out_im_1_c_20 = myAHE(inp_im_1, 20);
+load(out_imgFil_1_c_20)
 figure('Name', 'Contrast-enhanced (AHE w=41) barbara.png'), imshow(out_im_1_c_20, [0 255]), colorbar, truesize;
+
 out_im_1_c_5 = myAHE(inp_im_1, 5);
 figure('Name', 'Contrast-enhanced (AHE w=11) barbara.png'), imshow(out_im_1_c_5, [0 255]), colorbar, truesize;
-out_im_1_c_50 = myAHE(inp_im_2, 50);
+
+% out_im_1_c_50 = myAHE(inp_im_2, 50);
+load(out_imgFil_1_c_50)
 figure('Name', 'Contrast-enhanced (AHE w=101) TEM.png'), imshow(out_im_1_c_50, [0 255]), colorbar, truesize;
 
-out_im_2_c_20 = myAHE(inp_im_2, 20);
+% out_im_2_c_20 = myAHE(inp_im_2, 20);
+load(out_imgFil_2_c_20)
 figure('Name', 'Contrast-enhanced (AHE w=41) TEM.png'), imshow(out_im_2_c_20, [0 255]), colorbar, truesize;
+
 out_im_2_c_5 = myAHE(inp_im_2, 5);
 figure('Name', 'Contrast-enhanced (AHE w=11) TEM.png'), imshow(out_im_2_c_5, [0 255]), colorbar, truesize;
-out_im_2_c_50 = myAHE(inp_im_2, 50);
+
+% out_im_2_c_50 = myAHE(inp_im_2, 50);
+load(out_imgFil_2_c_50)
 figure('Name', 'Contrast-enhanced (AHE w=101) TEM.png'), imshow(out_im_2_c_50, [0 255]), colorbar, truesize;
 
-out_im_3_r_c_20 = myAHE(inp_im_3_r, 20);
-out_im_3_g_c_20 = myAHE(inp_im_3_g, 20);
-out_im_3_b_c_20 = myAHE(inp_im_3_b, 20);
-out_im_3_c_20 = cat(3, out_im_3_r_c_20, out_im_3_g_c_20, out_im_3_b_c_20);
+% out_im_3_r_c_20 = myAHE(inp_im_3_r, 20);
+% out_im_3_g_c_20 = myAHE(inp_im_3_g, 20);
+% out_im_3_b_c_20 = myAHE(inp_im_3_b, 20);
+% out_im_3_c_20 = cat(3, out_im_3_r_c_20, out_im_3_g_c_20, out_im_3_b_c_20);
+load(out_imgFil_3_c_20)
 figure('Name', 'Contrast-enhanced (AHE w=41) canyon.png'), imshow(single(out_im_3_c_20)/255, colormap(hsv(255))), colorbar, truesize;
 
 out_im_3_r_c_5 = myAHE(inp_im_3_r, 5);
@@ -126,10 +135,11 @@ out_im_3_b_c_5 = myAHE(inp_im_3_b, 5);
 out_im_3_c_5 = cat(3, out_im_3_r_c_5, out_im_3_g_c_5, out_im_3_b_c_5);
 figure('Name', 'Contrast-enhanced (AHE w=11) canyon.png'), imshow(single(out_im_3_c_5)/255, colormap(hsv(255))), colorbar, truesize;
 
-out_im_3_r_c_50 = myAHE(inp_im_3_r, 50);
-out_im_3_g_c_50 = myAHE(inp_im_3_g, 50);
-out_im_3_b_c_50 = myAHE(inp_im_3_b, 50);
-out_im_3_c_50 = cat(3, out_im_3_r_c_50, out_im_3_g_c_50, out_im_3_b_c_50);
+% out_im_3_r_c_50 = myAHE(inp_im_3_r, 50);
+% out_im_3_g_c_50 = myAHE(inp_im_3_g, 50);
+% out_im_3_b_c_50 = myAHE(inp_im_3_b, 50);
+% out_im_3_c_50 = cat(3, out_im_3_r_c_50, out_im_3_g_c_50, out_im_3_b_c_50);
+load(out_imgFil_3_c_50)
 figure('Name', 'Contrast-enhanced (AHE w=101) canyon.png'), imshow(single(out_im_3_c_50)/255, colormap(hsv(255))), colorbar, truesize;
 
 % As we can see in the output images, AHE with small window size amplifies

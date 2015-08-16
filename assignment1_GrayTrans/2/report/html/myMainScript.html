@@ -129,6 +129,16 @@ figure(<span class="string">'Name'</span>, <span class="string">'Contrast-enhanc
 <span class="comment">%Here, the effects can be seen near the ground, where more rocks are</span>
 <span class="comment">%visible. Since this is a colored image, r, g and b channels have been</span>
 <span class="comment">%separately enhanced</span>
+
+<span class="comment">% The concept behind Linear Contrast Stretching is basically creating a</span>
+<span class="comment">% mapping between the new and old pixels. The peseudocode for this would</span>
+<span class="comment">% be:</span>
+<span class="comment">% old_range = max(all_intensities) - min(all_intensities)</span>
+<span class="comment">% new_range = 255</span>
+<span class="comment">% for all pixels:</span>
+<span class="comment">%   intensity = (intensity/old_range)*new_range</span>
+<span class="comment">% end for</span>
+
 </pre><img vspace="5" hspace="5" src="myMainScript_04.png" alt=""> <img vspace="5" hspace="5" src="myMainScript_05.png" alt=""> <img vspace="5" hspace="5" src="myMainScript_06.png" alt=""> <h2>2(b): Histogram Equalization<a name="7"></a></h2><pre class="codeinput">out_im_1_b = myHE(inp_im_1);
 figure(<span class="string">'Name'</span>, <span class="string">'Contrast-enhanced (Histogram Equalization) barbara.png'</span>), imshow(out_im_1_b, [0 255]), colorbar, truesize;
 
