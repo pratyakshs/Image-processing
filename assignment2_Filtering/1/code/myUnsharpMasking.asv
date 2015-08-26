@@ -1,7 +1,0 @@
-function [ Iout ] = myUnsharpMasking( Im, filter_size, sigma, lim )
-% Unsharp masking: mask created using fspecial
-    filt = fspecial('gaussian', filter_size, sigma);
-    Ifilt = imfilter(Im, filt); % apply low pass gaussian on Im
-    Iout = nlfilter(Im - Ifilt, [1 1], @(x) abs(x) ) + Im;
-end
-
