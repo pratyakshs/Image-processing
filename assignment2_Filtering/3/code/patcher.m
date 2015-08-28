@@ -1,4 +1,4 @@
-function [ pix_intensity ] = patcher( in_image, pix, win_size, patch_size, h)
+function [ pix_intensity ] = patcher( in_image, pix, win_size, patch_size, h, iso_gau_var)
 %Definition
 %   Description
     %Create the window dynamically
@@ -19,7 +19,9 @@ function [ pix_intensity ] = patcher( in_image, pix, win_size, patch_size, h)
             patch_lef_lim = min((patch_size-1)/2, i-win_lef_lim);
             patch_rig_lim = min((patch_size-1)/2, win_rig_lim-i);
             pix_patch = in_image((pix(1)-patch_lef_lim):(pix(1)+patch_rig_lim), (pix(2)-patch_top_lim):(pix(2)+patch_bot_lim));
+            pix_patch = isotropize(pix_patch, patch_lef_lim, patch_rig_lim, patch_top_lim, patch_bot_lim, iso_gau_var);
             temp_patch = in_image((i-patch_lef_lim):(i+patch_rig_lim), (j-patch_top_lim):(j+patch_bot_lim));
+            temp_patch = isotropize(temp_patch, patch_lef_lim, patch_rig_lim, patch_top_lim, patch_bot_lim, iso_gau_var);
             %TODO: Make patches isotropic!!!!
             weight_mat(i-win_lef_lim+1,j-win_top_lim+1) = exp((-norm2(temp_patch - pix_patch))^2/h^2);
         end
