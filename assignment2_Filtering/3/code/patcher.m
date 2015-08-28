@@ -1,40 +1,38 @@
-function [ pix ] = patcher( ext_win, patch_size, win_size, h, gau_var )
-%This does the patch based filtering for one pixel with a window size
-%win_size around it
-%   ext_win is the extended window of size win_size+patch. This is because
-%   the boundary patches can go outside the original window size; h is the
-%   parameter to be tuned; gau_var is the gaussian variance used to make
-%   the patch isotropic; win_size is the original window size
-    [rows, cols] = size(ext_win);
-    pix_pos_row = ceil(rows/2);
-    pix_pos_col = ceil(cols/2);
-    %pix_patch is the isotropic patch around the pixel for which the new
-    %intensity is to be calculated
-    pix_patch = myPatchHelper1(ext_win(pix_pos_row-patch_size/2:pix_pos_row+patch_size/2,pix_pos_col-patch_size/2:pix_pos_col+patch_size/2), gau_var);
-    %Following are the limits for the loops
-    i_init = floor((rows-win_size)/2 +1);
-    i_final = floor((rows-win_size)/2 + 1 + win_size);
-    j_init = floor((cols-win_size)/2 +1);
-    j_final = floor((cols-win_size)/2 + 1 + win_size);
+function [ pix_intensity ] = patcher( in_image, pix, win_size, patch_size, h)
+%Definition
+%   Description
+    %Create the window dynamically
+    [rows, cols] = size(in_image);
+    win_top_lim = min((win_size-1)/2, pix(2));
+    win_bot_lim = min((win_size-1)/2, rows-pix(2));
+    win_lef_lim = min((win_size-1)/2, pix(1));
+    win_rig_lim = min((win_size-1)/2, cols-pix(1));
+    dyn_win = in_image(win_lef_lim:win_rig_lim, win_top_lim:win_bot_lim);
     %This is the weight matrix wherein we store weights assigned on the
     %basis of spatial distance
-    weight_mat = zeros([win_size, win_size]);
-    %Iterating over every pixel in the window
-    for i = i_init:i_final
-        for j = j_init:j_final
-            temp_patch = myPatchHelper1(ext_win(i-patch_size/2:i+patch_size/2,j-patch_size/2:j+patch_size/2), gau_var);
-            weight_mat(i-i_init+1,j-j_init+1) = exp((-norm2(temp_patch - pix_patch))^2/h^2);
+    weight_mat = zeros(size(dyn_win));
+    for i = win_lef_lim:win_rig_lim
+        for j = win_top_lim:win_bot_lim
+            %Dynamically create patches
+            patch_top_lim = min((patch_size-1)/2, j-win_top_lim);
+            patch_bot_lim = min((patch_size-1)/2, win_bot_lim-j);
+            patch_lef_lim = min((patch_size-1)/2, i-win_lef_lim);
+            patch_rig_lim = min((patch_size-1)/2, win_rig_lim-i);
+            pix_patch = in_image((pix(1)-patch_lef_lim):(pix(1)+patch_rig_lim), (pix(2)-patch_top_lim):(pix(2)+patch_bot_lim));
+            temp_patch = in_image((i-patch_lef_lim):(i+patch_rig_lim), (j-patch_top_lim):(j+patch_bot_lim));
+            %TODO: Make patches isotropic!!!!
+            weight_mat(i-win_lef_lim+1,j-win_top_lim+1) = exp((-norm2(temp_patch - pix_patch))^2/h^2);
         end
     end
     %We normalize the weight matrix
     weight_mat = weight_mat/sum(weight_mat(:));
     %This is the weigted sum
     weight_sum = 0;
-    for i = i_init:i_final
-        for j = j_init:j_final
-            weight_sum = weight_sum + ext_win(i,j)*weight_mat(i-i_init, j-j_init);
+    for i = win_lef_lim:win_rig_lim
+        for j = win_top_lim:win_bot_lim
+            weight_sum = weight_sum + in_image(i,j)*weight_mat(i-win_lef_lim+1, j-win_top_lim+1);
         end
     end
-    pix = weight_sum;
+    pix_intensity = weight_sum;
 end
 
