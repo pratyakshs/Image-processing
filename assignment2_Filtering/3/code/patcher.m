@@ -1,5 +1,5 @@
 function [ pix_intensity ] = patcher( in_image, pix, win_size, patch_size, h, iso_gau_var)
-%Definition
+%Applied patch based filtering for a single pixel in a given window
 %   Description
     %Create the window dynamically
     [rows, cols] = size(in_image);
