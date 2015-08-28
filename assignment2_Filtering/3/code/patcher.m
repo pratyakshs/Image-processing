@@ -7,12 +7,12 @@ function [ pix_intensity ] = patcher( in_image, pix, win_size, patch_size, h, is
     win_bot_lim = min((win_size-1)/2, rows-pix(2));
     win_lef_lim = min((win_size-1)/2, pix(1));
     win_rig_lim = min((win_size-1)/2, cols-pix(1));
-    dyn_win = in_image(win_lef_lim:win_rig_lim, win_top_lim:win_bot_lim);
+    dyn_win = in_image(pix(1)-win_lef_lim:pix(1)+win_rig_lim, pix(2)-win_top_lim:pix(2)+win_bot_lim);
     %This is the weight matrix wherein we store weights assigned on the
     %basis of spatial distance
     weight_mat = zeros(size(dyn_win));
-    for i = win_lef_lim:win_rig_lim
-        for j = win_top_lim:win_bot_lim
+    for i = pix(1)-win_lef_lim:pix(1)+win_rig_lim
+        for j = pix(2)-win_top_lim:pix(2)+win_bot_lim
             %Dynamically create patches
             patch_top_lim = min((patch_size-1)/2, j-win_top_lim);
             patch_bot_lim = min((patch_size-1)/2, win_bot_lim-j);
