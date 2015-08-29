@@ -7,7 +7,6 @@ range = double(max(in_im(:))) - double(min(in_im(:)));
 stdev = (5*range)/100;
 dis = randn(rows, cols);
 noise = stdev*dis;
-size(noise)
 out_im = in_im + noise;
 end
 
