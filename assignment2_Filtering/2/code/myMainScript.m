@@ -14,6 +14,7 @@ maxOrigI = max(imageOrig(:));  % 100 for barbara
 
 figure('Name', 'Original Barbara'), imshow(imageOrig, [minOrigI maxOrigI]), 
 colorbar, truesize;  % Display the original image
+title('Original Barbara');
 
 %% Noisifying
 imageNoisy = myNoisify(imageOrig);
@@ -24,6 +25,7 @@ imageNoisyRes = myRescaleIntensities(imageNoisy, minOrigI, maxOrigI);
 
 figure('Name', 'Noisy Barbara'), imshow(imageNoisyRes, [minOrigI maxOrigI]), 
 colorbar, truesize;  % display the noisy image
+title('Noisy Barbara');
 
 %% Bilateral filtering
 
@@ -34,6 +36,7 @@ imageFiltered = myBilateralFiltering(imageNoisyRes, 1.1, 6.8);
 
 figure('Name', 'Filtered Barbara'), imshow(imageFiltered, [minOrigI maxOrigI]), 
 colorbar, truesize;  % display the filtered image
+title('Filtered Barbara');
 
 %% Mask for spatial Gaussian as an image
 sz = size(imageOrig);
@@ -47,7 +50,7 @@ G_spatial = myRescaleIntensities(G_spatial, minOrigI, maxOrigI);
 
 figure('Name', 'Spatial Gaussian Mask'), imshow(G_spatial, [minOrigI maxOrigI]), 
 colorbar, truesize;  % display the noisy image
-
+title('Spatial Gaussian Mask');
 
 %% Optimal parameter values
 sigmaSpaceOpt = 1.1
