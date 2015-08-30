@@ -1,6 +1,6 @@
 function [ out_image ] = myPatchBasedFiltering( in_image, win_size, patch_size, h )
 %Does Patch Based Filtering to remove noise from an image
-%   Detailed explanation goes here
+%   Uses dynamic windows and dynamic patches at boundaries
     [rows, cols] = size(in_image);
     fin_image = zeros(rows, cols);
     wb = waitbar(0);
