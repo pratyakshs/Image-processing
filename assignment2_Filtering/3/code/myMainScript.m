@@ -72,7 +72,7 @@ title('Filtered Barbara')
 %title('Filtered Barbara 1.1')
 
 % Display the Gaussian mask
-figure('Name', 'Gaussian Mask', 'Position', [0, 0, 500, 500]), imshow(gau, [minOrigI maxOrigI]), colorbar;
+figure('Name', 'Gaussian Mask'), imshow(gau, [minOrigI maxOrigI]), colorbar, truesize;
 title('Gaussian Mask')
 
 %% Save the images

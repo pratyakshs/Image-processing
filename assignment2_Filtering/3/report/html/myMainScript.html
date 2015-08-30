@@ -72,13 +72,19 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 </pre><h2>Taking inputs<a name="4"></a></h2><pre class="codeinput">load(inp_imgFil);
 minOrigI = min(imageOrig(:));  <span class="comment">% 0 for barbara</span>
 maxOrigI = max(imageOrig(:));  <span class="comment">% 100 for barbara</span>
-</pre><h2>Subsampling<a name="5"></a></h2><pre class="codeinput">imageOrig = imageOrig(1:2:end, 1:2:end);
+</pre><h2>Subsampling<a name="5"></a></h2><pre class="codeinput"><span class="comment">%Subsampled the image to reduce running time</span>
+imageOrig = imageOrig(1:2:end, 1:2:end);
 filt = fspecial(<span class="string">'gaussian'</span>, [5 5], 0.66);
 imageOrig = imfilter(imageOrig, filt, <span class="string">'same'</span>);
-</pre><h2>Noisifying<a name="6"></a></h2><pre class="codeinput">noisedImage = myNoisify(imageOrig);
+</pre><h2>Noisifying<a name="6"></a></h2><pre class="codeinput"><span class="comment">%Added noise to the image and performed linear contrast stretching</span>
+noisedImage = myNoisify(imageOrig);
 noisedImage = myRescaleIntensities(noisedImage, minOrigI, maxOrigI);
-</pre><h2>Apply patch-based filtering<a name="7"></a></h2><pre class="codeinput"><span class="comment">% Takes ~ 15 minutes to run, use saved .mat file instead</span>
-<span class="comment">% im_out = myPatchBasedFiltering(noisedImage, 25, 9, 1);</span>
+</pre><h2>Apply patch-based filtering<a name="7"></a></h2><pre class="codeinput"><span class="comment">% Takes ~ 15 minutes to run, use saved .mat file instead else uncomment the</span>
+<span class="comment">% below and run</span>
+<span class="comment">%im_out = myPatchBasedFiltering(noisedImage, 25, 9, 1);</span>
+<span class="comment">%im_out_09 = myPatchBasedFiltering(noisedImage, 25, 9, 0.9);</span>
+<span class="comment">%im_out_11 = myPatchBasedFiltering(noisedImage, 25, 9, 1.1);</span>
+
 inp_mat = fullfile(curDir, <span class="string">'..'</span>, <span class="string">'data'</span>, <span class="string">'barbaraFiltered.mat'</span>);
 load(inp_mat);
 
@@ -87,11 +93,13 @@ load(inp_mat);
 </pre><h2>Mask for isotropizing gaussian as an image<a name="8"></a></h2><pre class="codeinput">patch_size = 9;
 gau = fspecial(<span class="string">'gaussian'</span>, [patch_size patch_size], 1);
 gau = myRescaleIntensities(gau, minOrigI, maxOrigI);
-</pre><h2>Optimal parameter values<a name="9"></a></h2><p>h_opt = 1;</p><pre class="codeinput">RMSD_opt = myRMSD(im_out, imageOrig)
+</pre><h2>Optimal parameter values<a name="9"></a></h2><p>h_opt = 1; RMSD_opt = 4.4078 RMSD_0.9 = 4.5043 RMSD_1.1 = 4.3394</p><pre class="codeinput">RMSD_opt = myRMSD(im_out, imageOrig)
+<span class="comment">%RMSD_opt_09 = myRMSD(im_out_09, imageOrig)</span>
+<span class="comment">%RMSD_opt_11 = myRMSD(im_out_11, imageOrig)</span>
 </pre><pre class="codeoutput">
 RMSD_opt =
 
-    6.0022
+    4.4078
 
 </pre><h2>Display the images<a name="10"></a></h2><p>Display the original image (subsampled)</p><pre class="codeinput">figure(<span class="string">'Name'</span>, <span class="string">'Original Barbara'</span>), imshow(imageOrig, gray(100)), colorbar, truesize;
 title(<span class="string">'Original Barbara'</span>)
@@ -104,8 +112,14 @@ title(<span class="string">'Noisy Barbara'</span>)
 figure(<span class="string">'Name'</span>, <span class="string">'Filtered Barbara'</span>), imshow(im_out, gray(100)), colorbar, truesize;
 title(<span class="string">'Filtered Barbara'</span>)
 
+<span class="comment">%figure('Name', 'Filtered Barbara 0.9'), imshow(im_out_09, gray(100)), colorbar, truesize;</span>
+<span class="comment">%title('Filtered Barbara 0.9')</span>
+
+<span class="comment">%figure('Name', 'Filtered Barbara 1.1'), imshow(im_out_11, gray(100)), colorbar, truesize;</span>
+<span class="comment">%title('Filtered Barbara 1.1')</span>
+
 <span class="comment">% Display the Gaussian mask</span>
-figure(<span class="string">'Name'</span>, <span class="string">'Gaussian Mask'</span>, <span class="string">'Position'</span>, [0, 0, 1000, 1000]), imshow(gau, [minOrigI maxOrigI]), colorbar;
+figure(<span class="string">'Name'</span>, <span class="string">'Gaussian Mask'</span>, <span class="string">'Position'</span>, [0, 0, 500, 500]), imshow(gau, [minOrigI maxOrigI]), colorbar;
 title(<span class="string">'Gaussian Mask'</span>)
 </pre><img vspace="5" hspace="5" src="myMainScript_01.png" alt=""> <img vspace="5" hspace="5" src="myMainScript_02.png" alt=""> <img vspace="5" hspace="5" src="myMainScript_03.png" alt=""> <img vspace="5" hspace="5" src="myMainScript_04.png" alt=""> <h2>Save the images<a name="11"></a></h2><pre class="codeinput">out_mat = fullfile(curDir, <span class="string">'..'</span>, <span class="string">'data'</span>, <span class="string">'barbaraFiltered.mat'</span>);
 save(out_mat, <span class="string">'im_out'</span>);
@@ -117,7 +131,7 @@ out_png = fullfile(curDir, <span class="string">'..'</span>, <span class="string
 imwrite(im_out, gray(100), out_png);
 
 toc;
-</pre><pre class="codeoutput">Elapsed time is 3.113299 seconds.
+</pre><pre class="codeoutput">Elapsed time is 3.353087 seconds.
 </pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% MyMainScript
@@ -136,18 +150,24 @@ minOrigI = min(imageOrig(:));  % 0 for barbara
 maxOrigI = max(imageOrig(:));  % 100 for barbara
 
 %% Subsampling
+%Subsampled the image to reduce running time
 imageOrig = imageOrig(1:2:end, 1:2:end);
 filt = fspecial('gaussian', [5 5], 0.66);
 imageOrig = imfilter(imageOrig, filt, 'same');
 
 %% Noisifying
+%Added noise to the image and performed linear contrast stretching
 noisedImage = myNoisify(imageOrig);
 noisedImage = myRescaleIntensities(noisedImage, minOrigI, maxOrigI);
 
 %% Apply patch-based filtering
 
-% Takes ~ 15 minutes to run, use saved .mat file instead
-% im_out = myPatchBasedFiltering(noisedImage, 25, 9, 1);
+% Takes ~ 15 minutes to run, use saved .mat file instead else uncomment the
+% below and run
+%im_out = myPatchBasedFiltering(noisedImage, 25, 9, 1);
+%im_out_09 = myPatchBasedFiltering(noisedImage, 25, 9, 0.9);
+%im_out_11 = myPatchBasedFiltering(noisedImage, 25, 9, 1.1);
+
 inp_mat = fullfile(curDir, '..', 'data', 'barbaraFiltered.mat');
 load(inp_mat);
 
@@ -161,7 +181,12 @@ gau = myRescaleIntensities(gau, minOrigI, maxOrigI);
 
 %% Optimal parameter values
 % h_opt = 1;
+% RMSD_opt = 4.4078
+% RMSD_0.9 = 4.5043
+% RMSD_1.1 = 4.3394
 RMSD_opt = myRMSD(im_out, imageOrig)
+%RMSD_opt_09 = myRMSD(im_out_09, imageOrig)
+%RMSD_opt_11 = myRMSD(im_out_11, imageOrig)
 
 %% Display the images
 % Display the original image (subsampled)
@@ -176,8 +201,14 @@ title('Noisy Barbara')
 figure('Name', 'Filtered Barbara'), imshow(im_out, gray(100)), colorbar, truesize;
 title('Filtered Barbara')
 
+%figure('Name', 'Filtered Barbara 0.9'), imshow(im_out_09, gray(100)), colorbar, truesize;
+%title('Filtered Barbara 0.9')
+
+%figure('Name', 'Filtered Barbara 1.1'), imshow(im_out_11, gray(100)), colorbar, truesize;
+%title('Filtered Barbara 1.1')
+
 % Display the Gaussian mask
-figure('Name', 'Gaussian Mask', 'Position', [0, 0, 1000, 1000]), imshow(gau, [minOrigI maxOrigI]), colorbar;
+figure('Name', 'Gaussian Mask', 'Position', [0, 0, 500, 500]), imshow(gau, [minOrigI maxOrigI]), colorbar;
 title('Gaussian Mask')
 
 %% Save the images
