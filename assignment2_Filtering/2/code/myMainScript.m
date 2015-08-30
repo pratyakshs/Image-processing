@@ -70,6 +70,10 @@ RMSD_4 = myRMSD(imageFiltered_4, imageOrig)
 %% Save output file
 out_mat = fullfile(curDir, '..', 'data', 'barbaraFiltered.mat');
 save(out_mat, 'imageFilteredOpt');
+
+out_png_noisy = fullfile(curDir, '..', 'images', 'barbaraNoisy.png');
+imwrite(imageNoisyRes, gray(100), out_png_noisy);
+
 out_png = fullfile(curDir, '..', 'images', 'barbaraFiltered.png');
 imwrite(imageFilteredOpt, gray(100), out_png);
 
