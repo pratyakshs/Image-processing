@@ -12,11 +12,11 @@ G_spatial = exp(-Dist/(2*sigma_s^2));  % Spatial gaussian mask
 % Apply bilateral filter.
 for i = 1:sz(1)
    for j = 1:sz(2)
-       % Find the window size
-       w_up = min([12, i-1]);
-       w_down = min([12, sz(1)-i]);
-       w_left = min([12, j-1]);
-       w_right = min([12, sz(2)-j]);
+       % Find the window size (max window size = 15)
+       w_up = min([7, i-1]);
+       w_down = min([7, sz(1)-i]);
+       w_left = min([7, j-1]);
+       w_right = min([7, sz(2)-j]);
        
        % Extract the window from the original image
        window = Img(i-w_up:i+w_down, j-w_left:j+w_right);
