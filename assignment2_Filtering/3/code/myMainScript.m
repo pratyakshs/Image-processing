@@ -28,6 +28,7 @@ im_out = myPatchBasedFiltering(noisedImage, 25, 9, 1);
 % Window size = 25 and patch size = 9 were used.
 
 %% Mask for isotropizing gaussian as an image
+patch_size = 9;
 gau = fspecial('gaussian', [patch_size patch_size], 1);
 gau = myRescaleIntensities(gau, minOrigI, maxOrigI);
 
@@ -50,4 +51,5 @@ imwrite(noisedImage, gray(100), out_png_noisy);
 
 out_png = fullfile(curDir, '..', 'images', 'barbaraFiltered.png');
 imwrite(im_out, gray(100), out_png);
+
 toc;
