@@ -36,14 +36,18 @@ figure('Name', 'Filtered Barbara'), imshow(imageFiltered, [minOrigI maxOrigI]),
 colorbar, truesize;  % display the filtered image
 
 %% Mask for spatial Gaussian as an image
-% is this the right thing??
 sz = size(imageOrig);
 [X, Y] = meshgrid(-sz(1)/2:sz(1)/2,-sz(2)/2:sz(2)/2);
 Dist = double(X.^2 + Y.^2);
-sigma_s = 1.1;
+sigma_s = 10;  % Taken larger for effect
 G_spatial = exp(-Dist/(2*sigma_s^2));
-figure('Name', 'Spatial Gaussian'), imshow(G_spatial, [minOrigI maxOrigI]), 
+
+% Do contrast stretching
+G_spatial = myRescaleIntensities(G_spatial, minOrigI, maxOrigI);
+
+figure('Name', 'Spatial Gaussian Mask'), imshow(G_spatial, [minOrigI maxOrigI]), 
 colorbar, truesize;  % display the noisy image
+
 
 %% Optimal parameter values
 sigmaSpaceOpt = 1.1
