@@ -17,8 +17,7 @@ filt = fspecial('gaussian', [5 5], 0.66);
 imageOrig = imfilter(imageOrig, filt, 'same');
 
 %% Noisifying
-imshow(myNoisify(imageOrig), gray(100));
-figure, imshow(imageOrig, gray(100));
-im_out = myPatchBasedFiltering(imageOrig, 25, 9, 1);
-figure, imshow(im_out, gray(100));
+imshow(myNoisify(imageOrig), colormap(gray));
+figure, imshow(imageOrig, colormap(gray));
+figure, imshow(myPatchBasedFiltering(imageOrig, 25, 9), colormap(gray));
 toc;
