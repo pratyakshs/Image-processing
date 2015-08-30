@@ -39,27 +39,13 @@ function [ out_image ] = myPatchBasedFiltering( in_image, win_size, patch_size, 
                     diff_patch = temp_patch - pix_patch;
                     hw = floor(patch_size/2) + 1;
                     diff_patch = diff_patch.*gau(hw-patch_top_lim:hw+patch_bot_lim, hw-patch_lef_lim:hw+patch_rig_lim);
-                    %-norm(diff_patch)^2
+
                     weight_mat(l-win_top_lim+1, k-win_lef_lim+1) = exp(-1 * (norm(diff_patch))^2/h^2);
-                    
-                    %%norm(temp_patch - pix_patch) * norm(temp_patch - pix_patch)
-                    %if isnan(weight_mat(l-win_top_lim+1, k-win_lef_lim+1))
-                    %    display(-norm(temp_patch - pix_patch));
-                    %    return;
-                    %end
                 end
             end
             
             %We normalize the weight matrix
             weight_mat = weight_mat/sum(weight_mat(:));
-            %if max(isnan(weight_mat2)) == 1
-            %    display(weight_mat);
-            %    display([i j]);
-            %    display([win_lef_lim win_rig_lim]);
-            %    display([win_top_lim win_bot_lim]);
-            %    return;
-            %end
-            %weight_mat = weight_mat2;
             %This is the weigted sum
             weighted_in = weight_mat .* dyn_win;
             fin_image(j,i) = sum(weighted_in(:));
