@@ -11,4 +11,3 @@ function [ out_img ] = myButterworthFiltering( in_img, d0, n )
     end
     out_img = in_img.*h_matrix;
 end
-
