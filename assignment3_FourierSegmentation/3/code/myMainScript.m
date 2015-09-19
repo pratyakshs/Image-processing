@@ -6,6 +6,6 @@ myfilteredimage = myfilteredimage(1:2:end, 1:2:end, :);
 tic;
 %% Your code here
 
-[Iout] = myMeanShiftSegmentation(myfilteredimage, 91, 32, 16, 20);
+[Iout, count] = myMeanShiftSegmentation(myfilteredimage, 91, 32, 16, 21);
 toc;
 imshow(Iout/255, hsv(255));
