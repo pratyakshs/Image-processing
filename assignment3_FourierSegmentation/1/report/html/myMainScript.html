@@ -1,0 +1,280 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>myMainScript</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2015-09-20"><meta name="DC.source" content="myMainScript.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#1">MyMainScript</a></li><li><a href="#2">Setting global data</a></li><li><a href="#3">Input files</a></li><li><a href="#4">Loading inputs</a></li><li><a href="#5">Noisifying</a></li><li><a href="#6">Contrast Stretch Params (If required)</a></li><li><a href="#7">Other Params</a></li><li><a href="#8">Applying Butterworth</a></li><li><a href="#9">RMSD Values</a></li><li><a href="#10">Display Images</a></li><li><a href="#11">Energy Filtering Analysis</a></li></ul></div><h2>MyMainScript<a name="1"></a></h2><pre class="codeinput">tic;
+</pre><h2>Setting global data<a name="2"></a></h2><pre class="codeinput">curDir = pwd;
+</pre><h2>Input files<a name="3"></a></h2><pre class="codeinput">boat_file = fullfile(curDir, <span class="string">'..'</span>, <span class="string">'data'</span>, <span class="string">'boat.mat'</span>);
+</pre><h2>Loading inputs<a name="4"></a></h2><pre class="codeinput">load(boat_file);
+boatOrig = imageOrig;
+</pre><h2>Noisifying<a name="5"></a></h2><pre class="codeinput">boatNois = myNoisify(boatOrig);
+</pre><h2>Contrast Stretch Params (If required)<a name="6"></a></h2><pre class="codeinput">minOrigI = min(boatOrig(:));
+maxOrigI = max(boatOrig(:));
+</pre><h2>Other Params<a name="7"></a></h2><pre class="codeinput">dopt = 83;
+nval = 2;
+</pre><h2>Applying Butterworth<a name="8"></a></h2><pre class="codeinput"><span class="comment">%Apply fast fourier transform</span>
+boatFreq = fft2(boatNois);
+<span class="comment">%move the zero-frequency component to the center</span>
+boatFreq = fftshift(boatFreq);
+<span class="comment">%Apply Butterworth Filter</span>
+[boatTranF, b_filter] = myButterworthFiltering(boatFreq, dopt, nval);
+<span class="comment">%reverse apply</span>
+boatTranFS = ifftshift(boatTranF);
+boatTran = ifft2(boatTranFS);
+</pre><h2>RMSD Values<a name="9"></a></h2><pre class="codeinput">filtered_0 = myButterworthFiltering(boatFreq, dopt, nval);
+rmsd_0 = abs(myRMSD(filtered_0, boatOrig))/1000;
+disp([<span class="string">'RMSD for Dopt = Dopt is '</span> num2str(rmsd_0)]);
+
+filtered_1 = myButterworthFiltering(boatFreq, dopt*0.95, nval);
+rmsd_1 = abs(myRMSD(filtered_1, boatOrig))/1000;
+disp([<span class="string">'RMSD for Dopt = Dopt*0.95 is '</span> num2str(rmsd_1)]);
+
+filtered_2 = myButterworthFiltering(boatFreq, dopt*1.05, nval);
+rmsd_2 = abs(myRMSD(filtered_2, boatOrig))/1000;
+disp([<span class="string">'RMSD for Dopt = Dopt*1.05 is '</span> num2str(rmsd_2)]);
+
+<span class="comment">%As we see from the result, the optimal value of Dopt turns out to be 83.</span>
+<span class="comment">%Here are the values for RMSD in each case:</span>
+<span class="comment">%Optimal Dopt: 65.9422</span>
+<span class="comment">%Dopt*0.95: 65.9422</span>
+<span class="comment">%Dopt*1.05: 65.9423</span>
+<span class="comment">%For Dopt, the image is considerably clear and filtered</span>
+</pre><pre class="codeoutput">RMSD for Dopt = Dopt is 65.8997
+RMSD for Dopt = Dopt*0.95 is 65.8997
+RMSD for Dopt = Dopt*1.05 is 65.8999
+</pre><h2>Display Images<a name="10"></a></h2><pre class="codeinput">figure(<span class="string">'Name'</span>, <span class="string">'Boat Original'</span>),
+imshow(boatOrig, []), colorbar, truesize;
+title(<span class="string">'Boat Original'</span>);
+
+figure(<span class="string">'Name'</span>, <span class="string">'Boat Noised'</span>),
+imshow(boatNois, []), colorbar, truesize;
+title(<span class="string">'Boat Noised'</span>);
+
+figure(<span class="string">'Name'</span>, <span class="string">'Boat Transformed'</span>),
+imshow(abs(boatTran), []), colorbar, truesize;
+title(<span class="string">'Boat Transformed'</span>);
+
+figure(<span class="string">'Name'</span>, <span class="string">'Butterworth Filter'</span>),
+imshow(b_filter, gray), colorbar, truesize;
+title(<span class="string">'Butterworth Filter'</span>);
+</pre><img vspace="5" hspace="5" src="myMainScript_01.png" alt=""> <img vspace="5" hspace="5" src="myMainScript_02.png" alt=""> <img vspace="5" hspace="5" src="myMainScript_03.png" alt=""> <img vspace="5" hspace="5" src="myMainScript_04.png" alt=""> <h2>Energy Filtering Analysis<a name="11"></a></h2><pre class="codeinput"><span class="comment">%We already have boatFreq, the image in frequency domain from above</span>
+<span class="comment">%Calculating the total energy</span>
+boatFreqTemp = fft2(boatOrig);
+boatFreq = fftshift(boatFreqTemp);
+
+energy100 = sum(sum(abs(boatFreq).^2));
+<span class="comment">%The radii calculated after tuning are as follows</span>
+<span class="comment">%For ~88% energy, R = 1.5 | E = 90.5633</span>
+<span class="comment">%For ~91% energy, R = 2.2 | E = 90.6931</span>
+<span class="comment">%For ~94% energy, R = 4.5 | E = 94.1009</span>
+<span class="comment">%For ~97% energy, R = 14.1 | E = 97.0273</span>
+<span class="comment">%For ~99% energy, R = 59 | E = 99.0074</span>
+
+radii = [1.5 2.2 4.5 14.1 59];
+energies = [88 91 94 97 99];
+[rows, cols] = size(boatFreq);
+
+<span class="keyword">for</span> k=1:5
+    in_radius = radii(k);
+    filter_mask = zeros(rows, cols);
+    <span class="keyword">for</span> i = 1:cols
+        <span class="keyword">for</span> j = 1:rows
+            dist = sqrt((i-cols/2)^2 + (j-rows/2)^2);
+            <span class="keyword">if</span> (dist &lt; in_radius)
+               filter_mask(i,j) = boatFreq(i,j);
+            <span class="keyword">end</span>
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+    boatInvFS = ifftshift(filter_mask);
+    boatInv = ifft2(boatInvFS);
+    boatInv = abs(boatInv);
+    rmsd = myRMSD(boatOrig, boatInv);
+    out_energy = sum(sum(abs(filter_mask).^2));
+    disp([<span class="string">'for '</span> num2str(energies(k)) <span class="string">'%, radius = '</span> num2str(in_radius) <span class="string">' calculated energy % = '</span> num2str(out_energy*100/energy100) <span class="string">' and RMSD = '</span> num2str(rmsd)]);
+<span class="keyword">end</span>
+toc;
+</pre><pre class="codeoutput">for 88%, radius = 1.5 calculated energy % = 90.5633 and RMSD = 40.0994
+for 91%, radius = 2.2 calculated energy % = 90.6931 and RMSD = 39.7015
+for 94%, radius = 4.5 calculated energy % = 94.1009 and RMSD = 32.6919
+for 97%, radius = 14.1 calculated energy % = 97.0273 and RMSD = 23.4786
+for 99%, radius = 59 calculated energy % = 99.0074 and RMSD = 13.6692
+Elapsed time is 10.379030 seconds.
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% MyMainScript
+
+tic;
+
+
+%% Setting global data
+curDir = pwd;
+
+%% Input files
+boat_file = fullfile(curDir, '..', 'data', 'boat.mat');
+
+%% Loading inputs
+load(boat_file);
+boatOrig = imageOrig;
+
+%% Noisifying
+boatNois = myNoisify(boatOrig);
+
+%% Contrast Stretch Params (If required)
+minOrigI = min(boatOrig(:)); 
+maxOrigI = max(boatOrig(:));
+
+%% Other Params
+dopt = 83;
+nval = 2;
+
+%% Applying Butterworth
+%Apply fast fourier transform
+boatFreq = fft2(boatNois);
+%move the zero-frequency component to the center
+boatFreq = fftshift(boatFreq);
+%Apply Butterworth Filter
+[boatTranF, b_filter] = myButterworthFiltering(boatFreq, dopt, nval);
+%reverse apply
+boatTranFS = ifftshift(boatTranF);
+boatTran = ifft2(boatTranFS);
+
+%% RMSD Values
+filtered_0 = myButterworthFiltering(boatFreq, dopt, nval);
+rmsd_0 = abs(myRMSD(filtered_0, boatOrig))/1000;
+disp(['RMSD for Dopt = Dopt is ' num2str(rmsd_0)]);
+
+filtered_1 = myButterworthFiltering(boatFreq, dopt*0.95, nval);
+rmsd_1 = abs(myRMSD(filtered_1, boatOrig))/1000;
+disp(['RMSD for Dopt = Dopt*0.95 is ' num2str(rmsd_1)]);
+
+filtered_2 = myButterworthFiltering(boatFreq, dopt*1.05, nval);
+rmsd_2 = abs(myRMSD(filtered_2, boatOrig))/1000;
+disp(['RMSD for Dopt = Dopt*1.05 is ' num2str(rmsd_2)]);
+
+%As we see from the result, the optimal value of Dopt turns out to be 83.
+%Here are the values for RMSD in each case:
+%Optimal Dopt: 65.9422
+%Dopt*0.95: 65.9422
+%Dopt*1.05: 65.9423
+%For Dopt, the image is considerably clear and filtered
+
+%% Display Images
+figure('Name', 'Boat Original'), 
+imshow(boatOrig, []), colorbar, truesize;
+title('Boat Original');
+
+figure('Name', 'Boat Noised'), 
+imshow(boatNois, []), colorbar, truesize;
+title('Boat Noised');
+
+figure('Name', 'Boat Transformed'), 
+imshow(abs(boatTran), []), colorbar, truesize;
+title('Boat Transformed');
+
+figure('Name', 'Butterworth Filter'), 
+imshow(b_filter, gray), colorbar, truesize;
+title('Butterworth Filter');
+%% Energy Filtering Analysis
+%We already have boatFreq, the image in frequency domain from above
+%Calculating the total energy
+boatFreqTemp = fft2(boatOrig);
+boatFreq = fftshift(boatFreqTemp);
+
+energy100 = sum(sum(abs(boatFreq).^2));
+%The radii calculated after tuning are as follows
+%For ~88% energy, R = 1.5 | E = 90.5633
+%For ~91% energy, R = 2.2 | E = 90.6931
+%For ~94% energy, R = 4.5 | E = 94.1009
+%For ~97% energy, R = 14.1 | E = 97.0273
+%For ~99% energy, R = 59 | E = 99.0074
+
+radii = [1.5 2.2 4.5 14.1 59];
+energies = [88 91 94 97 99];
+[rows, cols] = size(boatFreq);
+
+for k=1:5
+    in_radius = radii(k);
+    filter_mask = zeros(rows, cols);
+    for i = 1:cols
+        for j = 1:rows
+            dist = sqrt((i-cols/2)^2 + (j-rows/2)^2);
+            if (dist < in_radius)
+               filter_mask(i,j) = boatFreq(i,j);
+            end
+        end
+    end
+    boatInvFS = ifftshift(filter_mask);
+    boatInv = ifft2(boatInvFS);
+    boatInv = abs(boatInv);
+    rmsd = myRMSD(boatOrig, boatInv);
+    out_energy = sum(sum(abs(filter_mask).^2));
+    disp(['for ' num2str(energies(k)) '%, radius = ' num2str(in_radius) ' calculated energy % = ' num2str(out_energy*100/energy100) ' and RMSD = ' num2str(rmsd)]);
+end
+toc;
+
+##### SOURCE END #####
+--></body></html>
