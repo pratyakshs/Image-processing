@@ -1,6 +1,5 @@
 function [ out_img, b_filter ] = myButterworthFiltering( in_img, d0, n )
 %Does Butterworth Filtering
-%   Detailed explanation goes here
     [rows, cols] = size(in_img);
     h_matrix = zeros(rows, cols, 'like', in_img);
     for i = 1:cols
