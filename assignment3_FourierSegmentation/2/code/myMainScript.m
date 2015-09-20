@@ -13,10 +13,11 @@ load(inp_imgFil);
 %% Shift and rescale intensities to range [0, 1]
 resImage = myRescaleIntensities(imageOrig);
 
-%% Gaussian smoothing
-smoothImage = myGaussianBlur(resImage, 9, 1);
-
 %% Corner detection
-[E1, E2] = myHarrisCornerDetector(smoothImage, 1);
+[E1, E2] = myHarrisCornerDetector(resImage, 1, 2, 0.01);
+% optimal values are:
+% sigma1 = 1
+% sigma2 = 2
+% k = 0.01
 
 toc;

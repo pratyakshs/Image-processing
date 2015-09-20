@@ -1,7 +1,11 @@
-function [E1, E2] =  myHarrisCornerDetector(image, sigma)
+function [E1, E2] =  myHarrisCornerDetector(image, sigma1, sigma2, k)
 %Harris corner detection algorithm
 %   sigma = gaussian weights used in the averaging of the
 %   gradient-outer-product matrices;
+
+% Gaussian smoothing
+imageOrig = image;
+image = myGaussianBlur(image, sigma1, 11);  % window size = 11 (fixed)
 
 % Sobel operator for derivative
 Sx = [-1, 0, 1 ; -2, 0, 2; -1, 0, 1]; 
@@ -18,10 +22,10 @@ Ix2 = Ix.*Ix; % Square of X-gradient
 Iy2 = Iy.*Iy; % Square of Y-gradient
 IxIy = Ix.*Iy; % X-gradient * Y-gradient
 
-h = 11; % Maximum window size (fixed)
+h = 11 % Maximum window size (fixed)
 c = (h+1)/2; % Center of the window
 
-W = fspecial('gaussian', h, sigma); % Gaussian weights for averaging
+W = fspecial('gaussian', h, sigma2); % Gaussian weights for averaging
 sz = size(image); % Size of original image
 
 % For storing the two eigenvalues of structure tensor
@@ -30,7 +34,6 @@ E2 = zeros(sz);
 
 % Harris corner-ness measure
 C = zeros(sz);
-k = 0.2; % Empirically tuned constant
 
 wb = waitbar(0, 'Harris corner detection');
 % Loop exclues pixels near the boundaries of image
@@ -74,5 +77,11 @@ figure('Name', 'Second eigenvalue'), imshow(E2, [0 M2]), colorbar, truesize;
 C1 = min(C(:));
 C2 = max(C(:));
 figure('Name', 'Harris corner-ness measure'), imshow(C, [C1 C2]), colorbar, truesize;
+
+% Display the corners on the original image (for validating)
+out = imageOrig + 10 * (max(0, C));
+minOut = min(out(:));
+maxOut = max(out(:));
+figure('Name', 'Corners on the original image'), imshow(out, [minOut maxOut]), colorbar, truesize;
 
 end
