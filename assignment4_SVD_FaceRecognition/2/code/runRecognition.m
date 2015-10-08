@@ -1,4 +1,4 @@
-function [ prinDir, train_set, test_set, k_list, inden_rate ] = runRecognition( dataPath, imageSize, noOfppl, trainImS, testImS )
+function [ prinDir, train_set, test_set, k_list, inden_rate ] = runRecognition( dataPath, imageSize, noOfppl, trainImS, testImS, k_list, start_no )
 %RUNRECOGNITION Summary of this function goes here
 %   Detailed explanation goes here
 train_set = zeros([imageSize, noOfppl * trainImS]);
@@ -36,7 +36,6 @@ for person = dirList'
         ind = ind + 1;
     end
 end
-k_list = [1, 2, 3, 5, 10, 20, 30, 50, 75, 100, 125, 150, 170];
 inden_rate = zeros(size(k_list));
 %% Your code here
 train_set = double(train_set);
@@ -45,8 +44,8 @@ test_set = double(test_set);
 transTrain = prinDir.' * train_set;
 transTest = prinDir.' * test_set;
 for i = 1:max(size(k_list))
-    k = k_list(i);
-    ind = knnsearch(transTrain(1:k,:).', transTest(1:k,:).');
+    k = k_list(i) + start_no - 1;
+    ind = knnsearch(transTrain(start_no:k,:).', transTest(start_no:k,:).');
     inden_rate(i) = sum(bsxfun(@eq ,train_label(ind), test_label)) / (noOfppl * testImS); 
 end
 plot(k_list, inden_rate);
