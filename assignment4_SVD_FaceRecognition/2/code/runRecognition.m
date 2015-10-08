@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 function [ prinDir, train_set, test_set, k_list, inden_rate ] = runRecognition( dataPath, imageSize, noOfppl, trainImS, testImS, k_list, start_no )
-=======
-function [ prinDir, train_set, test_set, k_list, inden_rate ] = runRecognition( dataPath, imageSize, noOfppl, trainImS, testImS, k_list )
->>>>>>> origin/master
 %RUNRECOGNITION Summary of this function goes here
 %   Detailed explanation goes here
 train_set = zeros([imageSize, noOfppl * trainImS]);
@@ -40,10 +36,6 @@ for person = dirList'
         ind = ind + 1;
     end
 end
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
 inden_rate = zeros(size(k_list));
 %% Your code here
 train_set = double(train_set);
