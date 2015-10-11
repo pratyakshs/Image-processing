@@ -31,8 +31,9 @@ testSize2 = 5;
 
 [ D_max_gallery, train_set, mean_train, test_set, test_set2, transTrain, transTest, transTest2, train_label, test_label  ] = maxDist(dataPath, imageSize, noOfppl, trainImS, testSize2, testImS, 1);
 
-% We adjust the threshold to 85% of the 
-D_max_gallery = D_max_gallery * 0.85;
+% We adjust the threshold to 85% of the maximum distance (as mentioned
+% above)
+D_max_gallery = D_max_gallery * 0.85
 
 % k is chosen to be 150 because we got highest recognition rate at k = 150
 % (see Q2)
