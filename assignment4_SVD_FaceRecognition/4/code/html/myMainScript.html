@@ -1,0 +1,204 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>myMainScript</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2015-10-11"><meta name="DC.source" content="myMainScript.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1></h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#2">MyMainScript</a></li></ul></div><p>If the probe image is not in the training set, the algorithm used in Q2 will identify the image to be the one which has the closest eigen-coefficients - and we will get a match (a false positive).</p><pre class="codeinput"><span class="comment">% A simple solution to overcome this problem will be to use a threshold -</span>
+<span class="comment">% d, such that if the RMSD of the projected probe image with the eigen</span>
+<span class="comment">% coefficients of the images in the gallery is greater than d, then the</span>
+<span class="comment">% image is not said to be recognized. Otherwise, the usual algorithm is</span>
+<span class="comment">% followed.</span>
+
+<span class="comment">% The threshold is adjusted in order to get a balance between false</span>
+<span class="comment">% positives recognition rate on the test set (35 * 5 images).</span>
+<span class="comment">% Consider D_max_gallery = maximum RMSD (actually RMSD * image_size) of</span>
+<span class="comment">% probe image with the eigen coefficients, over all probe images in the</span>
+<span class="comment">% gallery that are recognized correctly.</span>
+
+<span class="comment">% If we set d := D_max_gallery, then there will be no false negatives (all</span>
+<span class="comment">% images in the gallery will be identified).</span>
+<span class="comment">% We set d := D_max_gallery - epsilon, in order to get a balance between</span>
+<span class="comment">% false positives and recognition rate (and also the number of false</span>
+<span class="comment">% negatives)</span>
+</pre><h2>MyMainScript<a name="2"></a></h2><pre class="codeinput">dataPath = uigetdir;
+imageSize = 92 * 112;
+noOfppl = 35;
+trainImS = 5;
+testImS = 5;
+testSize2 = 5;
+
+[ D_max_gallery, train_set, mean_train, test_set, test_set2, transTrain, transTest, transTest2, train_label, test_label  ] = maxDist(dataPath, imageSize, noOfppl, trainImS, testSize2, testImS, 1);
+
+<span class="comment">% We adjust the threshold to 85% of the</span>
+D_max_gallery = D_max_gallery * 0.85;
+
+<span class="comment">% k is chosen to be 150 because we got highest recognition rate at k = 150</span>
+<span class="comment">% (see Q2)</span>
+k = 150;
+
+<span class="comment">% calculate distances (from the eigen coefficients) and identified labels</span>
+<span class="comment">% of the training set images (projected)</span>
+[ind, distances] = knnsearch(transTrain(1:150,:).', transTest(1:k,:).');
+
+<span class="comment">% calculate distances (from eigen coefficients) of the remaining 5 * 10</span>
+<span class="comment">% images.</span>
+[~, distances2] = knnsearch(transTrain(1:150,:).', transTest2(1:k,:).');
+
+<span class="comment">% change train_label = 0 (image is not identified) for all images whose</span>
+<span class="comment">% distance is greater than threshold</span>
+modLabel = (arrayfun(@(x) (x &lt;= D_max_gallery), distances)).' .* train_label(ind);
+
+<span class="comment">% calculate number of false positives</span>
+falsePositives = sum(arrayfun(@(x) x &lt; D_max_gallery, distances2))
+
+<span class="comment">% calculate number of false negatives</span>
+falseNegatives = sum(arrayfun(@(x) x &gt; D_max_gallery, distances))
+
+<span class="comment">% calculate recognition rate</span>
+recogRate = sum(bsxfun(@eq ,modLabel, test_label)) / (noOfppl * testImS)
+
+tic;
+</pre><pre class="codeoutput">
+falsePositives =
+
+    11
+
+
+falseNegatives =
+
+    27
+
+
+recogRate =
+
+    0.8343
+
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+
+%%
+% If the probe image is not in the training set, the algorithm used in Q2 will identify the image to be the one which has the closest
+% eigen-coefficients - and we will get a match (a false positive). 
+
+% A simple solution to overcome this problem will be to use a threshold -
+% d, such that if the RMSD of the projected probe image with the eigen
+% coefficients of the images in the gallery is greater than d, then the
+% image is not said to be recognized. Otherwise, the usual algorithm is
+% followed.
+
+% The threshold is adjusted in order to get a balance between false
+% positives recognition rate on the test set (35 * 5 images). 
+% Consider D_max_gallery = maximum RMSD (actually RMSD * image_size) of 
+% probe image with the eigen coefficients, over all probe images in the
+% gallery that are recognized correctly.
+
+% If we set d := D_max_gallery, then there will be no false negatives (all
+% images in the gallery will be identified). 
+% We set d := D_max_gallery - epsilon, in order to get a balance between
+% false positives and recognition rate (and also the number of false
+% negatives)
+
+%% MyMainScript
+dataPath = uigetdir;
+imageSize = 92 * 112;
+noOfppl = 35;
+trainImS = 5;
+testImS = 5;
+testSize2 = 5;
+
+[ D_max_gallery, train_set, mean_train, test_set, test_set2, transTrain, transTest, transTest2, train_label, test_label  ] = maxDist(dataPath, imageSize, noOfppl, trainImS, testSize2, testImS, 1);
+
+% We adjust the threshold to 85% of the 
+D_max_gallery = D_max_gallery * 0.85;
+
+% k is chosen to be 150 because we got highest recognition rate at k = 150
+% (see Q2)
+k = 150;
+
+% calculate distances (from the eigen coefficients) and identified labels 
+% of the training set images (projected)
+[ind, distances] = knnsearch(transTrain(1:150,:).', transTest(1:k,:).');
+
+% calculate distances (from eigen coefficients) of the remaining 5 * 10
+% images. 
+[~, distances2] = knnsearch(transTrain(1:150,:).', transTest2(1:k,:).');
+
+% change train_label = 0 (image is not identified) for all images whose 
+% distance is greater than threshold
+modLabel = (arrayfun(@(x) (x <= D_max_gallery), distances)).' .* train_label(ind);
+
+% calculate number of false positives
+falsePositives = sum(arrayfun(@(x) x < D_max_gallery, distances2))
+
+% calculate number of false negatives
+falseNegatives = sum(arrayfun(@(x) x > D_max_gallery, distances))
+
+% calculate recognition rate
+recogRate = sum(bsxfun(@eq ,modLabel, test_label)) / (noOfppl * testImS)
+
+tic;
+##### SOURCE END #####
+--></body></html>
