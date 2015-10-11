@@ -1,4 +1,6 @@
 %% MyMainScript
+%runs recognition script on yale database recog rates ~ 62% taking all
+%people
 dataPath = uigetdir;
 imageSize = 192 * 168;
 noOfppl = 38;
