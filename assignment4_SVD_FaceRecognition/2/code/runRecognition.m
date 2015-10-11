@@ -1,6 +1,5 @@
 function [ prinDir, train_set, test_set, k_list, inden_rate ] = runRecognition( dataPath, imageSize, noOfppl, trainImS, testImS, k_list, start_no )
-%RUNRECOGNITION Summary of this function goes here
-%   Detailed explanation goes here
+%RUNRECOGNITION eun recognition for all k values in k_list
 train_set = zeros([imageSize, noOfppl * trainImS]);
 train_label = zeros([1, noOfppl * trainImS]);
 test_set = zeros([imageSize, noOfppl * testImS]);
@@ -35,11 +34,15 @@ for person = dirList'
         end
         ind = ind + 1;
     end
+    if ind == noOfppl
+        break
+    end
 end
 inden_rate = zeros(size(k_list));
 %% Your code here
-train_set = double(train_set);
-test_set = double(test_set);
+mean_train = mean(double(train_set), 2);
+train_set = double(train_set) - mean_train(:, ones([1, noOfppl * trainImS]));
+test_set = double(test_set) - mean_train(:, ones([1, noOfppl * testImS]));
 [~, prinDir] = myPCA(train_set);
 transTrain = prinDir.' * train_set;
 transTest = prinDir.' * test_set;
