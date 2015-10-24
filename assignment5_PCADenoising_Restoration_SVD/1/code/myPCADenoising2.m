@@ -9,6 +9,8 @@ P_y = size(im, 2) - 6;
 patch_add = zeros(size(im));
 patch_add_count = zeros(size(im));
 
+h = waitbar(0,'Applying PCADenoising2...');
+
 for i = 1:P_x
     for j = 1:P_y
         % Extract the 7x7 patch
@@ -67,7 +69,10 @@ for i = 1:P_x
         patch_add_count(i:i+6, j:j+6) = patch_add_count(i:i+6, j:j+6) + 1;
         
     end
+    waitbar(i/P_x);  % Update the waitbar
 end
+
+close(h);  % Close the waitbar
 
 imRes = patch_add ./ patch_add_count;
 

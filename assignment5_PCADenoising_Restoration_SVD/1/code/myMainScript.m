@@ -33,4 +33,16 @@ figure('Name', 'Output of myPCADenoising2'), imshow(im3/max(im3(:))), colorbar, 
 % RMSD for this case
 rmsd_b = rms(rms(im3 - im))
 
+%% Part 1(c)
+% Optimal parameters for Bilateral Filtering:
+sigma_S = 1.0  % Spatial
+sigma_I = 53.6  % Intensity
+
+im4 = myBilateralFiltering(im1, sigma_S, sigma_I);
+
+figure('Name', 'Output of myBilateralFiltering'), imshow(im4/max(im4(:))), colorbar, truesize;
+
+% RMSD for this case
+rmsd_c = rms(rms(im4 - im))
+
 toc;
