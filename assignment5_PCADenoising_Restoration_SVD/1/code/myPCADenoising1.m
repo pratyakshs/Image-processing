@@ -21,7 +21,7 @@ end
 
 % Get eigenvectors of P*P'
 Q = P * P.';
-[V, lambda] = eig(Q);
+[V, ~] = eig(Q);
 
 %Sort eigenvectors?
 %[lambda, ind] = sort(diag(lambda), 'descend');
@@ -56,6 +56,8 @@ P_denoised = V * A_denoised;
 
 % Reconstruct the output image
 patch_add = zeros(size(im));
+
+% Keep counts for averaging
 patch_add_count = zeros(size(im));
 
 for i=1:P_x
@@ -66,7 +68,7 @@ for i=1:P_x
     end
 end
 
+% Averaging on the accumulated patches
 imRes = patch_add ./ patch_add_count;
 
 end
-
