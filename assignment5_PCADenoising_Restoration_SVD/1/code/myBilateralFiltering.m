@@ -3,7 +3,7 @@ function Bf_Img = myBilateralFiltering(Img,sigma_s,sigma_i)
 sz = size(Img);
 Bf_Img = zeros(sz);
 
-%h = waitbar(0,'Applying bilateral filter...');
+h = waitbar(0,'Applying bilateral filter...');
 % Mask for spatial Gaussian
 [X, Y] = meshgrid(-sz(1)/2:sz(1)/2,-sz(2)/2:sz(2)/2);
 Dist = X.^2 + Y.^2;
@@ -31,6 +31,6 @@ for i = 1:sz(1)
        num = den.*window;  % Compute the numerator
        Bf_Img(i, j) = sum(num(:))/sum(den(:));  % Value at output pixel
    end
- % waitbar(i/sz(1));  % Update the waitbar
+   waitbar(i/sz(1));  % Update the waitbar
 end
-%close(h);  % Close the waitbar
+close(h);  % Close the waitbar

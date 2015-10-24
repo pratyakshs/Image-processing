@@ -74,6 +74,7 @@ end
 
 close(h);  % Close the waitbar
 
+% Averaging on the accumulated patches
 imRes = patch_add ./ patch_add_count;
 
 toc;

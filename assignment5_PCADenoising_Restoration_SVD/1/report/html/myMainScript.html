@@ -1,0 +1,249 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>myMainScript</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2015-10-24"><meta name="DC.source" content="myMainScript.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#1">MyMainScript</a></li><li><a href="#2">Setup</a></li><li><a href="#3">Part 1(a)</a></li><li><a href="#4">Part 1(b)</a></li><li><a href="#5">Part 1(c)</a></li></ul></div><h2>MyMainScript<a name="1"></a></h2><pre class="codeinput">tic;
+</pre><h2>Setup<a name="2"></a></h2><pre class="codeinput">curDir = pwd;
+imgFile = fullfile(curDir, <span class="string">'..'</span>, <span class="string">'data'</span>, <span class="string">'barbara256.png'</span>);
+imgFile_part = fullfile(curDir, <span class="string">'..'</span>, <span class="string">'data'</span>, <span class="string">'barbara256-part.png'</span>);
+
+im = double(imread(imgFile));
+im_part = double(imread(imgFile_part));
+
+im1 = im + randn(size(im))*20;
+im1_part =  im_part + randn(size(im_part))*20;
+
+figure(<span class="string">'Name'</span>, <span class="string">'Original barbara256.png'</span>), imshow(im/max(im(:))), colorbar, truesize;
+
+figure(<span class="string">'Name'</span>, <span class="string">'Noisy barbara256.png'</span>), imshow(im1/max(im1(:))), colorbar, truesize;
+</pre>
+
+<figure>
+    <figcaption><h2>Original barbara256.png</h2></figcaption>
+    <img vspace="5" hspace="5" src="myMainScript_01.png" alt=""> 
+</figure>
+
+<figure>
+  <figcaption><h2>Noisy barbara256.png</h2></figcaption>
+  <img vspace="5" hspace="5" src="myMainScript_02.png" alt="">
+</figure>
+ <h2>Part 1(a)<a name="3"></a></h2><pre class="codeinput">im2 = myPCADenoising1(im1, 20);
+
+figure(<span class="string">'Name'</span>, <span class="string">'Output of myPCADenoising1'</span>), imshow(im2/max(im2(:))), colorbar, truesize;
+
+<span class="comment">% RMSD for this case</span>
+rmsd_a = rms(rms(im2 - im))
+</pre><pre class="codeoutput">
+rmsd_a =
+
+    9.7789
+
+</pre>
+
+<figure>
+  <figcaption><h2>Output of myPCADenoising1</h2></figcaption>
+  <img vspace="5" hspace="5" src="myMainScript_03.png" alt="">
+</figure>
+
+ <h2>Part 1(b)<a name="4"></a></h2><pre class="codeinput">im3 = myPCADenoising2(im1, 20, 200);
+
+figure(<span class="string">'Name'</span>, <span class="string">'Output of myPCADenoising2'</span>), imshow(im3/max(im3(:))), colorbar, truesize;
+
+<span class="comment">% RMSD for this case</span>
+rmsd_b = rms(rms(im3 - im))
+</pre><pre class="codeoutput">Elapsed time is 408.338359 seconds.
+
+rmsd_b =
+
+    7.7028
+
+</pre>
+
+<figure>
+  <figcaption><h2>Output of myPCADenoising2</h2></figcaption>
+  <img vspace="5" hspace="5" src="myMainScript_04.png" alt="">
+</figure>
+
+<h2>Part 1(c)<a name="5"></a></h2><p>Optimal parameters for Bilateral Filtering:</p><pre class="codeinput">sigma_S = 1.0  <span class="comment">% Spatial</span>
+sigma_I = 53.6  <span class="comment">% Intensity</span>
+
+im4 = myBilateralFiltering(im1, sigma_S, sigma_I);
+
+figure(<span class="string">'Name'</span>, <span class="string">'Output of myBilateralFiltering'</span>), imshow(im4/max(im4(:))), colorbar, truesize;
+
+<span class="comment">% RMSD for this case</span>
+rmsd_c = rms(rms(im4 - im))
+
+toc;
+</pre><pre class="codeoutput">
+sigma_S =
+
+     1
+
+
+sigma_I =
+
+   53.6000
+
+
+rmsd_c =
+
+   11.2881
+
+Elapsed time is 411.440657 seconds.
+</pre>
+<figure>
+  <figcaption><h2>Output of myBilateralFiltering</h2></figcaption>
+  <img vspace="5" hspace="5" src="myMainScript_05.png" alt="">
+</figure>
+
+<pre class="codeinput">
+
+<span class="comment">% Observations:</span>
+<span class="comment">% The PCA based techniques, especially the second one, give significantly better</span>
+<span class="comment">% denoising results than Bilateral Filtering. This difference can be seen both from</span>
+<span class="comment">% the RMSD values and from the output images themselves. The PCADenoising2 technique</span>
+<span class="comment">% gives more than 30% improvement on RMSD of the output image from the original </span>
+<span class="comment">% (un-noised) image.</span>
+
+<span class="comment">% The second PCA technique based on finding similar patch in a neighborhood gives </span>
+<span class="comment">% better result than the vanilla PCA-denoising; but it is much slower!</span>
+
+<span class="comment">% We get better edge-preservation with PCA techniques, as compared to Bilateral</span>
+<span class="comment">% Filtering (see the pattern on the shawl). Also the PCA outputs are smoother.</span>
+
+<span class="comment">% Differences b/w PCA and Bilateral Filtering: </span>
+<span class="comment">% Bilateral Filtering is based on weighted averaging of the intensities around </span>
+<span class="comment">% each pixel, whereas PCA is a reconstruction based technique - the idea being: </span>
+<span class="comment">% we can get the effect of denoising by scaling down the eigen-coefficients that </span>
+<span class="comment">% "correspond" to noise (whose average squared eigen-coefficients is close to sigma^2). </span>
+<span class="comment">% and then reconstructing the image from these modified eigen-coefficients. </span>
+
+<span class="comment">% In order to perform the PCA technique, we need to know the sigma of the added </span>
+<span class="comment">% noise, but this is not the case in Bilateral Filtering. </span>
+
+<span class="comment">% There are no parameters to be tuned, in case of PCA-denoising. On the other hand </span>
+<span class="comment">% one must tune the values of sigma_S and sigma_I to achieve optimal results </span>
+<span class="comment">% with Bilateral Filtering. </span>
+
+
+</pre>
+
+
+ <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% MyMainScript
+
+tic;
+
+%% Setup
+curDir = pwd;
+imgFile = fullfile(curDir, '..', 'data', 'barbara256.png');
+imgFile_part = fullfile(curDir, '..', 'data', 'barbara256-part.png');
+
+im = double(imread(imgFile));
+im_part = double(imread(imgFile_part));
+
+im1 = im + randn(size(im))*20;
+im1_part =  im_part + randn(size(im_part))*20;
+
+figure('Name', 'Original barbara256.png'), imshow(im/max(im(:))), colorbar, truesize;
+
+figure('Name', 'Noisy barbara256.png'), imshow(im1/max(im1(:))), colorbar, truesize;
+
+%% Part 1(a)
+im2 = myPCADenoising1(im1, 20);
+
+figure('Name', 'Output of myPCADenoising1'), imshow(im2/max(im2(:))), colorbar, truesize;
+
+% RMSD for this case
+rmsd_a = rms(rms(im2 - im))
+
+%% Part 1(b)
+im3 = myPCADenoising2(im1, 20, 200);
+
+figure('Name', 'Output of myPCADenoising2'), imshow(im3/max(im3(:))), colorbar, truesize;
+
+% RMSD for this case
+rmsd_b = rms(rms(im3 - im))
+
+%% Part 1(c)
+% Optimal parameters for Bilateral Filtering:
+sigma_S = 1.0  % Spatial
+sigma_I = 53.6  % Intensity
+
+im4 = myBilateralFiltering(im1, sigma_S, sigma_I);
+
+figure('Name', 'Output of myBilateralFiltering'), imshow(im4/max(im4(:))), colorbar, truesize;
+
+% RMSD for this case
+rmsd_c = rms(rms(im4 - im))
+
+toc;
+
+##### SOURCE END #####
+--></body></html>
